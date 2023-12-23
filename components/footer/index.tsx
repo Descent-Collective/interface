@@ -32,7 +32,7 @@ const content = [
     links: [
       {
         title: "Documentation",
-        link: "#",
+        link: "https://docs.descentdao.com",
       },
       {
         title: "Blog",
@@ -45,7 +45,7 @@ const content = [
     links: [
       {
         title: "Borrow",
-        link: "#",
+        link: "https://descentdao.com/app",
       },
       {
         title: "Earn",

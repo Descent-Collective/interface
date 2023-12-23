@@ -10,16 +10,9 @@ interface IMenu {
 const links = [
   {
     title: "Docs",
-    link: "#",
+    link: "https://docs.descentdao.com",
   },
-  {
-    title: "Community",
-    link: "#",
-  },
-  {
-    title: "View transaction history",
-    link: "#",
-  },
+
 ];
 
 const MenuComponent = ({ isOpen, setIsOpen }: IMenu) => {

@@ -42,15 +42,15 @@ const DescentHeader = () => {
               </Link>
               <div className="items-center gap-6 hidden md:flex">
                 <div className="w-[1px] h-[39px] bg-grey-100" />
-                <Link className="text-base xl:text-lg font-medium" href="#">
+                <Link className="text-base xl:text-lg font-medium" href="https://docs.descentdao.com">
                   Docs
                 </Link>
-                <Link
+                {/* <Link
                   className="ml-6 text-base xl:text-lg font-medium"
                   href="#"
                 >
                   Community
-                </Link>
+                </Link> */}
               </div>
             </div>
 

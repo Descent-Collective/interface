@@ -10,11 +10,11 @@ const VaultChanges = ({ amount, generated }: { amount: number, generated: number
 
   const collateralWorthInCurrency = ((Number(user.availableCollateral) + Number(amount)) * Number(collateral.collateralPrice))
 
-  const collateralRatio = ((Number(user.borrowedAmount) + Number(user.accruedFees)) * 100 / collateralWorthInCurrency).toFixed(2)
+  const newCollateralRatio = ((Number(user.borrowedAmount) + Number(user.accruedFees)) * 100 / collateralWorthInCurrency).toFixed(2)
 
-  const collateralDeposited = (Number(user.depositedCollateral) + Number(amount))
+  const collateralDeposited = (Number(user.depositedCollateral) + Number(amount)) * 100 / Number(collateral.liquidationThreshold);
   
-  const liquidationPrice = collateralWorthInCurrency / collateralDeposited
+  const liquidationPrice = collateralWorthInCurrency / Number(user.depositedCollateral) + Number(amount)
 
   const vaultChanges = [
     {
@@ -24,7 +24,7 @@ const VaultChanges = ({ amount, generated }: { amount: number, generated: number
     {
       title: "Collateral Ratio",
        // borrowed amount / deposited collateral * collateral price
-      value: `${collateralRatio}%`,
+      value: `${newCollateralRatio}%`,
     },
     {
       title: "Liquidation Price",
