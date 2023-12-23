@@ -1,6 +1,6 @@
 "use client";
-import HomeView from "@/views/home";
+import DashboardView from "@/views/dashboard";
 
 export default function Home() {
-  return <HomeView />;
+  return <DashboardView />;
 }
