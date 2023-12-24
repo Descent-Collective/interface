@@ -1,14 +1,17 @@
 import { AnimatePresence, motion } from "framer-motion";
 import classNames from "classnames";
 
-import { ErrorIcon, SuccessIcon } from "@/public/icons";
+import { ErrorIcon, InfoAltIcon, SuccessIcon } from "@/public/icons";
 import useSystemFunctions from "@/hooks/useSystemFunctions";
 import { useEffect, useState } from "react";
 
 const DescentAlert = () => {
-  const { alertState } = useSystemFunctions();
+  const { alertState, userState, collateralState } = useSystemFunctions();
 
   const { alert, loading } = alertState;
+  const { loadingSetup } = userState;
+  const { loadingApproveSupply, loadingBorrow, loadingRepay, loadingWithdraw } =
+    collateralState;
 
   const variants = {
     initial: { x: "50%", opacity: 0 },
@@ -56,6 +59,9 @@ const DescentAlert = () => {
 };
 
 const PendingView = () => {
+  const { alertState, userState, collateralState } = useSystemFunctions();
+
+  const { loadingSetup } = userState;
   const [count, setCount] = useState(15);
   const variants = {
     initial: { x: "50%", opacity: 0 },
@@ -81,12 +87,14 @@ const PendingView = () => {
         exit="exit"
         variants={variants}
         transition={{ type: "tween", duration: 0.5 }}
-        className="border-r-[6px] border-orange-300 flex p-3 rounded-l-xl shadow-wide-box max-w-[244px] bg-white-50 fixed top-20 md:top-24 right-1 md:right-12 xl:right-[60px] z-[9999]"
+        className="border-r-[6px] border-orange-300 flex p-3 rounded-l-xl shadow-wide-box max-w-[284px] bg-white-50 fixed top-20 md:top-24 right-1 md:right-12 xl:right-[60px] z-[9999]"
       >
         <div>
           <div className="flex justify-between items-center">
             <p className="text-black-100 text-xs md:text-sm font-semibold">
-              Transaction in progress
+              {loadingSetup
+                ? "Setting up your wallet"
+                : "Transaction in progress"}
             </p>
 
             <AnimatePresence mode="wait">
@@ -103,7 +111,9 @@ const PendingView = () => {
           </div>
 
           <div className="text-[10px] md:text-xs font-medium text-grey-500 mt-1">
-            You have a pending transaction. Please wait for confirmation!
+            Wait for confirmation!. If {"you're"} connected to your mobile
+            wallet, please check your phone for a prompt to approve this
+            transaction.
           </div>
         </div>
       </motion.div>

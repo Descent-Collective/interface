@@ -6,6 +6,7 @@ import useSystemFunctions from "@/hooks/useSystemFunctions";
 import { setLoading, setLoadingSetup, setUser } from ".";
 import { CallbackProps } from "../store";
 import { setCollateral } from "../collateral";
+import { setLoadingAlert } from "../alert";
 
 const useUserActions = () => {
   const { dispatch } = useSystemFunctions();
@@ -33,6 +34,9 @@ const useUserActions = () => {
     try {
       dispatch(setLoadingSetup(true));
       const descent = await _descentProvider();
+      setTimeout(() => {
+        dispatch(setLoadingAlert(true));
+      }, 2800);
       await descent.setupVault();
 
       getVaultInfo();
@@ -41,6 +45,7 @@ const useUserActions = () => {
       return callback?.onSuccess?.();
     } catch (error: any) {
       callback?.onError?.(error);
+      dispatch(setLoadingAlert(true));
     } finally {
       dispatch(setLoadingSetup(false));
     }
