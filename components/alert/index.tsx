@@ -1,17 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
 import classNames from "classnames";
 
-import { ErrorIcon, InfoAltIcon, SuccessIcon } from "@/public/icons";
+import { ErrorIcon, SuccessIcon } from "@/public/icons";
 import useSystemFunctions from "@/hooks/useSystemFunctions";
 import { useEffect, useState } from "react";
 
 const DescentAlert = () => {
-  const { alertState, userState, collateralState } = useSystemFunctions();
+  const { alertState } = useSystemFunctions();
 
   const { alert, loading } = alertState;
-  const { loadingSetup } = userState;
-  const { loadingApproveSupply, loadingBorrow, loadingRepay, loadingWithdraw } =
-    collateralState;
 
   const variants = {
     initial: { x: "50%", opacity: 0 },
@@ -59,7 +56,7 @@ const DescentAlert = () => {
 };
 
 const PendingView = () => {
-  const { alertState, userState, collateralState } = useSystemFunctions();
+  const { userState } = useSystemFunctions();
 
   const { loadingSetup } = userState;
   const [count, setCount] = useState(15);
