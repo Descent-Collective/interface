@@ -36,6 +36,7 @@ const useUserActions = () => {
       await descent.setupVault();
 
       getVaultInfo();
+      getCollateralInfo();
 
       return callback?.onSuccess?.();
     } catch (error: any) {
