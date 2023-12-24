@@ -24,7 +24,7 @@ const DescentModal = ({ close, children, variant = "normal" }: Modal) => {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 50, opacity: 0 }}
-        onClick={() => variant === "normal" && close()}
+        onClick={() => variant === "normal" && close && close()}
         className="z-10 absolute w-full h-full bg-black-100 bg-opacity-10 backdrop-blur-[0.8px]"
       />
       <motion.div
