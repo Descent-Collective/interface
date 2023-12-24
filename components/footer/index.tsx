@@ -7,7 +7,6 @@ import {
 } from "@/public/icons";
 import { DescentClickAnimation, DescentContainer } from "..";
 import classNames from "classnames";
-import useSystemFunctions from "@/hooks/useSystemFunctions";
 
 const content = [
   {
@@ -57,16 +56,9 @@ const content = [
 ];
 
 const DescentFooter = () => {
-  const { pathname } = useSystemFunctions();
-
-  const isDashboardRoute = pathname.includes("/app");
   return (
     <DescentContainer>
-      <footer
-        className={classNames("py-[72px] md:mx-7", {
-          "mt-16": isDashboardRoute,
-        })}
-      >
+      <footer className="py-[72px] md:mx-7 mt-16">
         <div className="flex flex-col md:flex-row gap-16 xl:gap-0 justify-between xl:z-10">
           <div>
             <LogoIcon />
