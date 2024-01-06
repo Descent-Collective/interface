@@ -1,11 +1,11 @@
-import classNames from "classnames";
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import classNames from 'classnames';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-import { Input } from "./types";
-import { DescentClickAnimation } from "..";
-import { InfoAltIcon } from "@/public/icons";
-import useSystemFunctions from "@/hooks/useSystemFunctions";
+import { Input } from './types';
+import { DescentClickAnimation } from '..';
+import { InfoAltIcon } from '@/public/icons';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 
 const DescentInput = (props: Input) => {
   const {
@@ -24,14 +24,14 @@ const DescentInput = (props: Input) => {
   } = props;
 
   const { inputState } = useSystemFunctions();
-  const [valueText, setValue] = useState("");
+  const [valueText, setValue] = useState('');
 
   const handleOnChange = (value: string) => {
-    const valueWithoutComma = value.replace(/,/g, "");
+    const valueWithoutComma = value.replace(/,/g, '');
 
     if (valueWithoutComma.length === 0 || Number(valueWithoutComma) === 0) {
-      setValue("");
-      onChange && onChange("");
+      setValue('');
+      onChange && onChange('');
       return;
     }
 
@@ -44,12 +44,11 @@ const DescentInput = (props: Input) => {
 
     // Format the number with local thousand separators
     // Temporarily remove the decimal part to format the integer part
-    const parts = valueWithoutComma.split(".");
+    const parts = valueWithoutComma.split('.');
     const integerFormatted = parseInt(parts[0]).toLocaleString();
 
     // Reconstruct the number including the decimal part if it exists
-    const newValue =
-      parts.length > 1 ? `${integerFormatted}.${parts[1]}` : integerFormatted;
+    const newValue = parts.length > 1 ? `${integerFormatted}.${parts[1]}` : integerFormatted;
 
     setValue(newValue);
     onChange && onChange(newValue);
@@ -57,8 +56,8 @@ const DescentInput = (props: Input) => {
 
   useEffect(() => {
     if (inputState.clear) {
-      setValue("");
-      onChange && onChange("");
+      setValue('');
+      onChange && onChange('');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputState.clear]);
@@ -69,19 +68,16 @@ const DescentInput = (props: Input) => {
         <label htmlFor={name} className="text-[9px] md:text-xs">
           {label}
         </label>
-        <div className="text-[9px] md:text-xs text-grey-500 font-medium">
-          {labelAlt}
-        </div>
+        <div className="text-[9px] md:text-xs text-grey-500 font-medium">{labelAlt}</div>
       </div>
       <div
         className={classNames(
-          "rounded-lg bg-white-300 border px-3 py-[5px] md:px-4 md:py-[15px] flex items-center justify-between",
+          'rounded-lg bg-white-300 border px-3 py-[5px] md:px-4 md:py-[15px] flex items-center justify-between',
           {
-            "border-black-100": !disabled,
-            "border-grey-850": disabled || !valid,
-          }
-        )}
-      >
+            'border-black-100': !disabled,
+            'border-grey-850': disabled || !valid,
+          },
+        )}>
         <div className="z-20">
           <input
             id={name}
@@ -90,18 +86,16 @@ const DescentInput = (props: Input) => {
             placeholder={placeholder}
             value={value || valueText}
             className={classNames(
-              "border-none text-xs md:text-xl font-medium bg-transparent outline-none",
+              'border-none text-xs md:text-xl font-medium bg-transparent outline-none',
               {
-                "text-black-100 placeholder:text-black-100": !disabled,
-                "text-grey-500 placeholder:text-grey-500": disabled,
-              }
+                'text-black-100 placeholder:text-black-100': !disabled,
+                'text-grey-500 placeholder:text-grey-500': disabled,
+              },
             )}
             onChange={(e) => handleOnChange(e.target.value)}
           />
           {valueAlt && (
-            <div className="text-grey-800 font-medium text-[8px] md:text-xs mt-1">
-              ~ {valueAlt}
-            </div>
+            <div className="text-grey-800 font-medium text-[8px] md:text-xs mt-1">~ {valueAlt}</div>
           )}
         </div>
 
@@ -110,9 +104,8 @@ const DescentInput = (props: Input) => {
             <DescentClickAnimation onClick={() => handleOnChange(max)}>
               <div
                 className={classNames(
-                  "py-1 text-black-100 px-[10px] bg-white-350 rounded text-[8px] md:text-xs cursor-pointer"
-                )}
-              >
+                  'py-1 text-black-100 px-[10px] bg-white-350 rounded text-[8px] md:text-xs cursor-pointer',
+                )}>
                 Max
               </div>
             </DescentClickAnimation>
@@ -126,8 +119,7 @@ const DescentInput = (props: Input) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mt-3 rounded-xl p-3 flex gap-1 bg-red-100 text-red-150"
-          >
+            className="mt-3 rounded-xl p-3 flex gap-1 bg-red-100 text-red-150">
             <div className="w-[17px]">
               <InfoAltIcon />
             </div>

@@ -1,5 +1,5 @@
-"use client";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+'use client';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface InputState {
   clear: boolean;
@@ -10,7 +10,7 @@ const initialState: InputState = {
 };
 
 export const inputReducer = createSlice({
-  name: "input",
+  name: 'input',
   initialState,
   reducers: {
     setClearInputs: (state, action: PayloadAction<boolean>) => {

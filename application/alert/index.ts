@@ -1,8 +1,8 @@
-"use client";
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+'use client';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { Alert } from "./types";
+import { Alert } from './types';
 
 export interface AlertState {
   alert: Alert | undefined;
@@ -15,7 +15,7 @@ const initialState: AlertState = {
 };
 
 export const alertReducer = createSlice({
-  name: "alert",
+  name: 'alert',
   initialState,
   reducers: {
     setLoadingAlert: (state, action: PayloadAction<boolean>) => {

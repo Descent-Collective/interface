@@ -1,12 +1,12 @@
-"use client";
-import { useEffect, useState } from "react";
-import Link from "next/link";
+'use client';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
-import { LogoIcon, NigeriaFlag, UsdcFlag } from "@/public/icons";
-import { DescentAlert, DescentContainer } from "..";
-import MenuComponent from "./menu";
-import useSystemFunctions from "@/hooks/useSystemFunctions";
-import Button from "./button";
+import { LogoIcon, NigeriaFlag, UsdcFlag } from '@/public/icons';
+import { DescentAlert, DescentContainer } from '..';
+import MenuComponent from './menu';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
+import Button from './button';
 
 const DescentHeader = () => {
   const { collateralState } = useSystemFunctions();
@@ -32,8 +32,7 @@ const DescentHeader = () => {
                 <div className="w-[1px] h-[39px] bg-grey-100" />
                 <Link
                   className="text-base xl:text-lg font-medium"
-                  href="https://docs.descentdao.com"
-                >
+                  href="https://docs.descentdao.com">
                   Docs
                 </Link>
                 {/* <Link
@@ -56,9 +55,7 @@ const DescentHeader = () => {
               <div className="mt-3 flex items-center gap-2">
                 <div className="text-black-100 text-xl md:text-2xl font-medium">
                   ₦{Number(collateral.collateralPrice).toLocaleString()}
-                  <span className="text-lg md:text-xl text-grey-500">
-                    /USDC
-                  </span>
+                  <span className="text-lg md:text-xl text-grey-500">/USDC</span>
                 </div>
 
                 <div className="py-[9px] px-2 md:py-[11px] md:px-5 rounded-[20px] bg-grey-900 flex items-center gap-1">

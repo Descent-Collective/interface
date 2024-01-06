@@ -1,8 +1,8 @@
-"use client";
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+'use client';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { User, defaultUser } from "./types";
+import { User, defaultUser } from './types';
 
 export interface UserState {
   user: User;
@@ -17,7 +17,7 @@ const initialState: UserState = {
 };
 
 export const userReducer = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setLoading: (state, action: PayloadAction<boolean>) => {

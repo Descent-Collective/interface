@@ -1,11 +1,11 @@
-"use client";
-import { configureStore } from "@reduxjs/toolkit";
+'use client';
+import { configureStore } from '@reduxjs/toolkit';
 
-import userReducer from "./user";
-import menuReducer from "./menu";
-import collateralReducer from "./collateral";
-import alertReducer from "./alert";
-import inputReducer from "./input";
+import userReducer from './user';
+import menuReducer from './menu';
+import collateralReducer from './collateral';
+import alertReducer from './alert';
+import inputReducer from './input';
 
 export interface CallbackProps {
   onSuccess?: Function;

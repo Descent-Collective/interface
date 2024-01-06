@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { DescentButton, DescentInput } from "@/components";
-import useSystemFunctions from "@/hooks/useSystemFunctions";
-import { formatAmount } from "@/utils";
-import useCollateralActions from "@/application/collateral/actions";
+import { useState } from 'react';
+import { DescentButton, DescentInput } from '@/components';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
+import { formatAmount } from '@/utils';
+import useCollateralActions from '@/application/collateral/actions';
 
 const RepayModal = ({ close }: { close: () => void }) => {
   const { userState, collateralState } = useSystemFunctions();
@@ -10,16 +10,16 @@ const RepayModal = ({ close }: { close: () => void }) => {
 
   const { user } = userState;
   const { loadingRepay, loadingApproveRepay } = collateralState;
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState('');
 
   const loading = loadingRepay || loadingApproveRepay;
-  const amountWithoutComma = amount.replace(/,/g, "");
+  const amountWithoutComma = amount.replace(/,/g, '');
   const debt = formatAmount(user?.borrowedAmount);
 
   const error =
     Number(amountWithoutComma) > Number(user.borrowedAmount)
-      ? "You cannot repay more than your debt."
-      : "";
+      ? 'You cannot repay more than your debt.'
+      : '';
   const valid = amount.length > 0 && !error;
 
   const handleSubmit = async (e: any) => {
@@ -30,12 +30,8 @@ const RepayModal = ({ close }: { close: () => void }) => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:gap-6">
       <div>
-        <div className="text-black-100 text-lg md:text-xl font-medium">
-          Repay xNGN
-        </div>
-        <div className="text-grey-500 font-medium text-xs md:text-sm">
-          Payback the xNGN you owe
-        </div>
+        <div className="text-black-100 text-lg md:text-xl font-medium">Repay xNGN</div>
+        <div className="text-grey-500 font-medium text-xs md:text-sm">Payback the xNGN you owe</div>
       </div>
 
       <div>

@@ -1,20 +1,20 @@
-import useAlertActions from "@/application/alert/actions";
-import useCollateralActions from "@/application/collateral/actions";
-import useUserActions from "@/application/user/actions";
-import React, { useState, useEffect } from "react";
-import { useWaitForTransaction } from "wagmi";
-import useSystemFunctions from "./useSystemFunctions";
-import { setLoadingAlert } from "@/application/alert";
+import useAlertActions from '@/application/alert/actions';
+import useCollateralActions from '@/application/collateral/actions';
+import useUserActions from '@/application/user/actions';
+import React, { useState, useEffect } from 'react';
+import { useWaitForTransaction } from 'wagmi';
+import useSystemFunctions from './useSystemFunctions';
+import { setLoadingAlert } from '@/application/alert';
 
 type TransactionStatus = {
-  type: "deposit" | "borrow" | "repay" | "withdraw";
+  type: 'approve' | 'deposit' | 'borrow' | 'repay' | 'withdraw';
   amount?: string;
   hash: `0x${string}`;
 };
 
 type Data = {
   [key: `0x${string}`]: {
-    type: "deposit" | "borrow" | "repay" | "withdraw";
+    type: 'approve' | 'deposit' | 'borrow' | 'repay' | 'withdraw';
     amount?: string;
   };
 };
@@ -24,9 +24,7 @@ const useTransactionListener = () => {
   const { alertUser } = useAlertActions();
   const { getVaultInfo, getCollateralInfo } = useUserActions();
 
-  const [transactionHash, setTransactionHash] = useState<
-    `0x${string}` | undefined
-  >(undefined);
+  const [transactionHash, setTransactionHash] = useState<`0x${string}` | undefined>(undefined);
   const [data, setData] = useState<Data>();
 
   const {
@@ -63,68 +61,60 @@ const useTransactionListener = () => {
 
     const { type, amount } = hashDetails;
 
-    if (receipt) {
+    if (receipt!.status === 'success') {
       switch (type) {
-        case "deposit":
+        case 'deposit':
           reset(transactionHash!);
           return alertUser({
-            title: "Bravo! Collateral deposited.",
-            variant: "success",
+            title: 'Bravo! Collateral deposited.',
+            variant: 'success',
             message: (
               <div>
-                Your collateral deposit of{" "}
-                <span className="text-black-100">
-                  {Number(amount).toLocaleString()} USDC
-                </span>{" "}
-                was successful.
+                Your collateral deposit of{' '}
+                <span className="text-black-100">{Number(amount).toLocaleString()} USDC</span> was
+                successful.
               </div>
             ),
           });
 
-        case "borrow":
+        case 'borrow':
           reset(transactionHash!);
           return alertUser({
-            title: "Bravo! xNGN borrowed.",
-            variant: "success",
+            title: 'Bravo! xNGN borrowed.',
+            variant: 'success',
             message: (
               <div>
-                Your loan of{" "}
-                <span className="text-black-100">
-                  {Number(amount).toLocaleString()} xNGN
-                </span>{" "}
-                has been successfully disbursed. Congratulations!
+                Your loan of{' '}
+                <span className="text-black-100">{Number(amount).toLocaleString()} xNGN</span> has
+                been successfully disbursed. Congratulations!
               </div>
             ),
           });
 
-        case "repay":
+        case 'repay':
           reset(transactionHash!);
           return alertUser({
-            title: "Bravo! Loan Repayed.",
-            variant: "success",
+            title: 'Bravo! Loan Repayed.',
+            variant: 'success',
             message: (
               <div>
-                Your loan of{" "}
-                <span className="text-black-100">
-                  {Number(amount).toLocaleString()} xNGN
-                </span>{" "}
-                has been repayed successfully. Congratulations!
+                Your loan of{' '}
+                <span className="text-black-100">{Number(amount).toLocaleString()} xNGN</span> has
+                been repayed successfully. Congratulations!
               </div>
             ),
           });
 
-        case "withdraw":
+        case 'withdraw':
           reset(transactionHash!);
           return alertUser({
-            title: "Bravo! Collateral Withdrawn.",
-            variant: "success",
+            title: 'Bravo! Collateral Withdrawn.',
+            variant: 'success',
             message: (
               <div>
-                Your withdrawal request of{" "}
-                <span className="text-black-100">
-                  {Number(amount).toLocaleString()} USDC
-                </span>{" "}
-                has been successful.
+                Your withdrawal request of{' '}
+                <span className="text-black-100">{Number(amount).toLocaleString()} USDC</span> has
+                been successful.
               </div>
             ),
           });
@@ -135,12 +125,12 @@ const useTransactionListener = () => {
 
     if (isError) {
       // There was an error with the transaction
-      console.error("Transaction error");
+      console.error('Transaction error');
     }
 
     if (isLoading) {
       // Transaction is still pending
-      console.log("Transaction is pending");
+      console.log('Transaction is pending');
     }
   };
 

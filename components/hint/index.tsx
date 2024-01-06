@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
-import { HintIcon, InfoIcon } from "@/public/icons";
-import { Hint } from "./types";
+import { HintIcon, InfoIcon } from '@/public/icons';
+import { Hint } from './types';
 
 const DescentHint = ({ text }: Hint) => {
   const [showHint, setShowHint] = useState(false);
@@ -11,8 +11,7 @@ const DescentHint = ({ text }: Hint) => {
       <div
         onMouseLeave={() => setShowHint(false)}
         onMouseEnter={() => setShowHint(true)}
-        className="cursor-pointer"
-      >
+        className="cursor-pointer">
         <InfoIcon />
       </div>
 
@@ -22,8 +21,7 @@ const DescentHint = ({ text }: Hint) => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.2 }}
-          className="relative z-50 top-10 md:top-12 -left-20 md:-left-28"
-        >
+          className="relative z-50 top-10 md:top-12 -left-20 md:-left-28">
           <div className="absolute rotate-180 -top-6 z-50 left-7">
             <HintIcon />
           </div>
