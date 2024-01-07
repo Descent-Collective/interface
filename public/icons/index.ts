@@ -32,6 +32,8 @@ import DashboardBlob4 from './dashboard-blob4.svg';
 import GoIcon from './go.svg';
 import HintIcon from './hint.svg';
 import SuccessAltIcon from './success-alt.svg';
+import CloseIcon from './close-icon.svg';
+import LogoutIcon from './logout.svg';
 
 export {
   CancelIcon,
@@ -68,4 +70,6 @@ export {
   GoIcon,
   HintIcon,
   SuccessAltIcon,
+  CloseIcon,
+  LogoutIcon,
 };

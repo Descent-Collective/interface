@@ -8,6 +8,8 @@ import useUserActions from '@/application/user/actions';
 import { SuccessAltIcon } from '@/public/icons';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
+import { getLocalStorage, removeLocalStorage } from '@/utils';
+import { setDisconnectWallet } from '@/application/user';
 
 const images = [
   'https://images.unsplash.com/photo-1634108947682-12a8ddfc9b61?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fHZhdWx0fGVufDB8fDB8fHww',
@@ -42,7 +44,7 @@ const variants = {
 };
 
 const Onboarding = () => {
-  const { userState } = useSystemFunctions();
+  const { userState, dispatch } = useSystemFunctions();
   const { openConnectModal } = useConnectModal();
   const { isConnected } = useAccount();
   const { setupVault } = useUserActions();
@@ -51,7 +53,9 @@ const Onboarding = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [domLoaded, setDomLoaded] = useState(false);
 
-  const { user, loadingSetup, loading } = userState;
+  const { user, loadingSetup, loading, disconnected } = userState;
+
+  const isDisconnected = !isConnected || disconnected;
 
   const nextStep = () => {
     if (activeStep === 4) {
@@ -63,6 +67,15 @@ const Onboarding = () => {
     setActiveStep((prev) => prev + 1);
   };
 
+  const connectModal = () => {
+    if (isConnected) {
+      removeLocalStorage('@descentWalletDisconnected');
+      return dispatch(setDisconnectWallet(false));
+    }
+
+    openConnectModal && openConnectModal();
+  };
+
   useEffect(() => {
     if (!loading && !user.hasSetupVault) setOpenOnboarding(true);
   }, [loading, user]);
@@ -71,7 +84,17 @@ const Onboarding = () => {
     setDomLoaded(true);
   }, []);
 
-  if (domLoaded && !isConnected && openConnectModal && !openOnboarding) {
+  useEffect(() => {
+    if (!domLoaded) return;
+
+    const isUserConnected = getLocalStorage('@descentWalletDisconnected');
+    if (isUserConnected && isUserConnected === 'true') {
+      dispatch(setDisconnectWallet(true));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [domLoaded]);
+
+  if (domLoaded && isDisconnected && openConnectModal && !openOnboarding) {
     return (
       <DescentModal variant="large" close={() => setOpenOnboarding(false)}>
         <AnimatePresence mode="wait">
@@ -90,7 +113,7 @@ const Onboarding = () => {
             </p>
 
             <div className="w-full md:w-[40%]">
-              <DescentButton onClick={openConnectModal} text="Connect Wallet" variant="secondary" />
+              <DescentButton onClick={connectModal} text="Connect Wallet" variant="secondary" />
             </div>
           </motion.div>
         </AnimatePresence>

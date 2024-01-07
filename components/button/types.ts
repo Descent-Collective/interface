@@ -12,6 +12,8 @@ export interface Button {
     | 'action'
     | 'accent'
     | 'danger'
-    | 'info';
+    | 'info'
+    | 'action2';
   icon?: React.ReactNode;
+  leftIcon?: React.ReactNode;
 }

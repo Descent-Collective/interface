@@ -38,6 +38,7 @@ const DescentButton = ({
   loading,
   variant = 'primary',
   icon,
+  leftIcon,
 }: Button) => {
   if (variant === 'secondary') {
     return (
@@ -92,10 +93,15 @@ const DescentButton = ({
           'bg-grey-100 h-9 md:h-12 text-grey-50 border-none shadow-none': disabled,
 
           'h-[22px] md:h-7 text-[9px] md:text-xs': disabled && variant === 'action',
+
+          'bg-white-50 text-red-50 border border-red-50 rounded-lg font-Space_Mono text-sm md:text-base py-3':
+            variant === 'action2',
         },
       )}
       disabled={disabled}
       type={type}>
+      {leftIcon && leftIcon}
+
       <div>{loading ? <ButtonLoading /> : text}</div>
 
       {icon && icon}
