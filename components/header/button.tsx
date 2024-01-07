@@ -4,7 +4,7 @@ import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
 import { motion } from 'framer-motion';
 
-import { CloseIcon, LogoutIcon, MenuIcon, MetamaskIcon } from '@/public/icons';
+import { CloseIcon, LogoutIcon, MenuIcon, MetamaskIcon, SmallUsdcIcon } from '@/public/icons';
 import { DescentButton, DescentClickAnimation } from '..';
 import { formatAddress, formatAmount, setLocalStorage } from '@/utils';
 import useDescent from '@/hooks/useDescent';
@@ -93,6 +93,7 @@ const Button = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
                     {formatAddress(address || '')}
                   </div>
                   <div className="mt-1 flex items-center gap-1">
+                    <SmallUsdcIcon />
                     <div className="text-grey-500 font-semibold text-xs">{usdcBalance}</div>
                   </div>
                 </div>

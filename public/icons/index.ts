@@ -34,6 +34,7 @@ import HintIcon from './hint.svg';
 import SuccessAltIcon from './success-alt.svg';
 import CloseIcon from './close-icon.svg';
 import LogoutIcon from './logout.svg';
+import SmallUsdcIcon from './small-usdc-icon.svg';
 
 export {
   CancelIcon,
@@ -72,4 +73,5 @@ export {
   SuccessAltIcon,
   CloseIcon,
   LogoutIcon,
+  SmallUsdcIcon,
 };
