@@ -94,7 +94,7 @@ const Onboarding = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [domLoaded]);
 
-  if (domLoaded && isDisconnected && openConnectModal && !openOnboarding) {
+  if (domLoaded && isDisconnected && !openOnboarding) {
     return (
       <DescentModal variant="large" close={() => setOpenOnboarding(false)}>
         <AnimatePresence mode="wait">
