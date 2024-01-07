@@ -8,6 +8,7 @@ import DescentMenu from './menu';
 import DescentModal from './modal';
 import DescentAlert from './alert';
 import DescentHint from './hint';
+import DescentLoader from './loader';
 
 export {
   DescentButton,
@@ -20,4 +21,5 @@ export {
   DescentModal,
   DescentAlert,
   DescentHint,
+  DescentLoader,
 };

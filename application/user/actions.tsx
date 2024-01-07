@@ -86,6 +86,7 @@ const useUserActions = () => {
         )}`,
         availableCollateral: ethers.formatUnits(vaultInfo.availableCollateral?.toString(), 6),
         availablexNGN: ethers.formatUnits(vaultInfo.availablexNGN?.toString(), 18),
+        doneFetching: true,
       };
 
       const response = { ...newVaultInfo, hasSetupVault, usdcWalletBalance };

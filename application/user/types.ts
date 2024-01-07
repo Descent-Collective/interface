@@ -9,6 +9,7 @@ type User = {
   availablexNGN: string;
   hasSetupVault: boolean;
   usdcWalletBalance: string;
+  doneFetching: boolean;
 };
 
 const defaultUser: User = {
@@ -22,6 +23,7 @@ const defaultUser: User = {
   availablexNGN: '0.0',
   hasSetupVault: false,
   usdcWalletBalance: '0.0',
+  doneFetching: false,
 };
 
 export type { User };

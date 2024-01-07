@@ -35,6 +35,8 @@ import SuccessAltIcon from './success-alt.svg';
 import CloseIcon from './close-icon.svg';
 import LogoutIcon from './logout.svg';
 import SmallUsdcIcon from './small-usdc-icon.svg';
+import TopLogoIcon from './Top.svg';
+import BottomLogoIcon from './bottom.svg';
 
 export {
   CancelIcon,
@@ -74,4 +76,6 @@ export {
   CloseIcon,
   LogoutIcon,
   SmallUsdcIcon,
+  TopLogoIcon,
+  BottomLogoIcon,
 };
