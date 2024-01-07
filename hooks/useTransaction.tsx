@@ -126,12 +126,10 @@ const useTransactionListener = () => {
 
     if (isError) {
       // There was an error with the transaction
-      console.error('Transaction error');
     }
 
     if (isLoading) {
       // Transaction is still pending
-      console.log('Transaction is pending');
     }
   };
 

@@ -38,9 +38,7 @@ const useUserActions = () => {
       });
 
       return descent;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const setupVault = async (callback?: CallbackProps) => {
@@ -93,7 +91,6 @@ const useUserActions = () => {
 
       return dispatch(setUser(response));
     } catch (error: any) {
-      console.log(error);
       callback?.onError?.(error);
     } finally {
       dispatch(setLoading(false));

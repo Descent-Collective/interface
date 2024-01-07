@@ -54,9 +54,7 @@ const useCollateralActions = () => {
       });
 
       return descentApp;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const getCollateralInfo = async (callback?: CallbackProps) => {
