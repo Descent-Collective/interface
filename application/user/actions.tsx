@@ -1,5 +1,5 @@
 'use client';
-import { useAccount } from 'wagmi';
+import { useAccount, useWaitForTransaction } from 'wagmi';
 import Descent from '@descent-protocol/sdk';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
@@ -8,10 +8,22 @@ import { CallbackProps } from '../store';
 import { setCollateral } from '../collateral';
 import { setLoadingAlert } from '../alert';
 import { ethers } from 'ethers';
+import { useEffect, useState } from 'react';
 
 const useUserActions = () => {
   const { dispatch } = useSystemFunctions();
   const { address, connector: activeConnector } = useAccount();
+
+  const [hash, setHash] = useState<`0x${string}` | undefined>(undefined);
+
+  const {
+    data: receipt,
+    isError,
+    isLoading,
+  } = useWaitForTransaction({
+    hash: hash,
+    enabled: !!hash,
+  });
 
   const _descentProvider = async () => {
     try {
@@ -38,7 +50,9 @@ const useUserActions = () => {
       setTimeout(() => {
         dispatch(setLoadingAlert(true));
       }, 2800);
-      await descent.setupVault();
+      const response = await descent.setupVault();
+
+      setHash(response.hash);
 
       getVaultInfo();
       getCollateralInfo();
@@ -111,6 +125,15 @@ const useUserActions = () => {
       dispatch(setLoading(false));
     }
   };
+
+  useEffect(() => {
+    if (receipt?.status != 'success' || hash === undefined) {
+      return;
+    }
+
+    dispatch(setLoadingAlert(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [receipt, isError, isLoading, hash]);
 
   return {
     setupVault,
