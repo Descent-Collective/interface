@@ -234,7 +234,7 @@ const Onboarding = () => {
             </div>
 
             <div className="absolute -top-2.5 md:top-0 right-0">
-              <DescentClickAnimation>
+              <DescentClickAnimation onClick={() => setActiveStep(4)}>
                 <button
                   type="button"
                   className="py-[7px] px-5 lg:py-[9px] lg:px-[28px] bg-green-400 rounded-lg cursor-pointer">
