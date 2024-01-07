@@ -173,7 +173,7 @@ const Onboarding = () => {
               <div className="w-full md:w-[40%]">
                 <DescentButton
                   onClick={() => setOpenOnboarding(false)}
-                  text="Set up vault"
+                  text="Start Borrowing"
                   variant="secondary"
                 />
               </div>
