@@ -73,7 +73,7 @@ const useUserActions = () => {
         availableCollateral: ethers.formatUnits(vaultInfo.availableCollateral?.toString(), 6),
         availablexNGN: ethers.formatUnits(vaultInfo.availablexNGN?.toString(), 18),
       };
-      console.log(newVaultInfo, 'here');
+
       const response = { ...newVaultInfo, hasSetupVault, usdcWalletBalance };
 
       return dispatch(setUser(response));
