@@ -34,6 +34,7 @@ const useTransactionListener = () => {
   } = useWaitForTransaction({
     hash: transactionHash,
     enabled: !!transactionHash, // Only enable when transactionHash is not null
+    confirmations: 2,
   });
 
   const listener = ({ hash, type, amount }: TransactionStatus) => {
