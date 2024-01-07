@@ -4,13 +4,14 @@ import { InfoIcon } from '@/public/icons';
 import { formatAmount } from '@/utils';
 import { ethers } from 'ethers';
 
-const VaultChanges = ({ amount, generated }: { amount: number; generated: number }) => {
+const VaultChanges = ({ amount }: { amount: number }) => {
   const { collateralState, userState } = useSystemFunctions();
   const { user } = userState;
   const { collateral } = collateralState;
 
   const collateralWorthInCurrency =
-    (Number(user.depositedCollateral) + amount) * Number(collateral.collateralPrice);
+    (Number(user.depositedCollateral) + amount / Number(collateral.collateralPrice)) *
+    Number(collateral.collateralPrice);
   const newCollateralRatio =
     ((Number(user.borrowedAmount) / Number(collateralWorthInCurrency)) * 100) / 1;
 
@@ -23,7 +24,9 @@ const VaultChanges = ({ amount, generated }: { amount: number; generated: number
   const vaultChanges = [
     {
       title: 'Collateral Locked',
-      value: `${formatAmount(user.collateralLocked)} USDC`,
+      value: `${formatAmount(
+        Number(user.collateralLocked) + Number(amount) / Number(collateral.collateralPrice),
+      )} USDC`,
     },
     {
       title: 'Collateral Ratio',
@@ -36,15 +39,17 @@ const VaultChanges = ({ amount, generated }: { amount: number; generated: number
     },
     {
       title: 'Vault xNGN Debt',
-      value: `${formatAmount(user.borrowedAmount)} xNGN`,
+      value: `${formatAmount(Number(user.borrowedAmount) + Number(amount))} xNGN`,
     },
     {
       title: 'Available Collateral',
-      value: `${formatAmount(Number(user.availableCollateral) + Number(amount))} USDC`,
+      value: `${formatAmount(
+        Number(user.availableCollateral) - Number(amount) / Number(collateral.collateralPrice),
+      )} USDC`,
     },
     {
       title: 'Available to Borrow',
-      value: `${formatAmount(Number(user.availablexNGN) + generated)} xNGN`,
+      value: `${formatAmount(Number(user.availablexNGN) - amount)} xNGN`,
     },
   ];
 
