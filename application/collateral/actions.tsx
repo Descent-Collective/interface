@@ -1,6 +1,6 @@
 'use client';
 import Descent from '@descent-protocol/sdk';
-import { useAccount } from 'wagmi';
+import { useAccount, useWaitForTransaction } from 'wagmi';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import {
@@ -21,12 +21,25 @@ import { setClearInputs } from '../input';
 import { setLoadingAlert } from '../alert';
 import { ethers } from 'ethers';
 import { waitTime } from '@/utils';
+import { useEffect, useState } from 'react';
 
 const useCollateralActions = () => {
   const { dispatch } = useSystemFunctions();
   const { connector: activeConnector } = useAccount();
   const { alertUser } = useAlertActions();
   const { listener } = useTransactionListener();
+
+  const [hash, setHash] = useState<`0x${string}` | undefined>(undefined);
+  const [amount, setAmount] = useState('');
+
+  const {
+    data: receipt,
+    isError,
+    isLoading,
+  } = useWaitForTransaction({
+    hash: hash,
+    enabled: !!hash,
+  });
 
   const _descentProvider = async () => {
     try {
@@ -79,24 +92,11 @@ const useCollateralActions = () => {
 
       const descent = await _descentProvider();
 
-      await descent.approveCollateral!(amount);
+      const approve = await descent.approveCollateral!(amount);
+      setHash(approve?.hash);
+      setAmount(amount);
 
-      dispatch(setLoadingApproveSupply(false));
-
-      dispatch(setLoadingSupply(true));
-      setTimeout(() => {
-        dispatch(setLoadingAlert(true));
-      }, 2800);
-
-      const response = await descent.depositCollateral(amount);
-
-      listener({
-        hash: response?.hash,
-        amount,
-        type: 'deposit',
-      });
-      _clearInputs();
-      return callback?.onSuccess?.(response);
+      return callback?.onSuccess?.();
     } catch (error: any) {
       dispatch(setLoadingAlert(false));
       callback?.onError?.(error);
@@ -112,9 +112,51 @@ const useCollateralActions = () => {
           </div>
         ),
       });
-    } finally {
+    }
+  };
+
+  const depositCollateralAfterApproval = async () => {
+    try {
+      if (receipt?.status != 'success' || hash === undefined) {
+        return;
+      }
+
       dispatch(setLoadingApproveSupply(false));
+      dispatch(setLoadingSupply(true));
+
+      const descent = await _descentProvider();
+
+      setTimeout(() => {
+        dispatch(setLoadingAlert(true));
+      }, 2800);
+
+      const response = await descent.depositCollateral(amount);
+
+      listener({
+        hash: response?.hash,
+        amount,
+        type: 'deposit',
+      });
+
+      _clearInputs();
+    } catch (error: any) {
+      dispatch(setLoadingAlert(false));
+
+      alertUser({
+        title: 'Collateral deposited unsuccessful.',
+        variant: 'error',
+        message: (
+          <div>
+            Your collateral deposit of{' '}
+            <span className="text-black-100">{Number(amount).toLocaleString()} USDC</span> was not
+            successful. Please try again.
+          </div>
+        ),
+      });
+    } finally {
       dispatch(setLoadingSupply(false));
+      setHash(undefined);
+      setAmount('');
     }
   };
 
@@ -242,6 +284,11 @@ const useCollateralActions = () => {
       dispatch(setClearInputs(false));
     }, 1000);
   };
+
+  useEffect(() => {
+    depositCollateralAfterApproval();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [receipt, isError, isLoading, hash]);
 
   return {
     getCollateralInfo,
