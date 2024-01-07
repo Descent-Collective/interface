@@ -4,7 +4,7 @@ import { InfoIcon } from '@/public/icons';
 import { formatAmount } from '@/utils';
 import { ethers } from 'ethers';
 
-const VaultChanges = ({ amount, generated }: { amount: number; generated: number }) => {
+const VaultChanges = ({ amount }: { amount: number }) => {
   const { collateralState, userState } = useSystemFunctions();
   const { user } = userState;
   const { collateral } = collateralState;
@@ -44,7 +44,7 @@ const VaultChanges = ({ amount, generated }: { amount: number; generated: number
     },
     {
       title: 'Available to Borrow',
-      value: `${formatAmount(Number(user.availablexNGN) + generated)} xNGN`,
+      value: `${formatAmount(Number(user.availablexNGN) - amount)} xNGN`,
     },
   ];
 
