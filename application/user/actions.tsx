@@ -89,23 +89,19 @@ const useUserActions = () => {
       dispatch(setLoading(true));
       const descent = await _descentProvider();
       const response = await descent.getCollateralInfo();
+
       const newResponse = {
         totalDepositedCollateral: ethers.formatUnits(
           response?.totalDepositedCollateral?.toString(),
           6,
         ),
         totalBorrowedAmount: ethers.formatUnits(response?.totalBorrowedAmount?.toString(), 18),
-        liquidationThreshold: `${ethers.formatUnits(
-          response.liquidationThreshold?.toString(),
-          16,
-        )}`,
-        debtCeiling: ethers.formatUnits(response.debtCeiling?.toString(), 18),
-        rate: ethers.formatUnits(response.rate?.toString(), 16),
-        minDeposit: ethers.formatUnits(response.minDeposit?.toString(), 18),
-        collateralPrice: ethers.formatUnits(response.collateralPrice?.toString(), 6),
+        liquidationThreshold: ethers.formatUnits(response?.liquidationThreshold?.toString(), 16),
+        debtCeiling: ethers.formatUnits(response?.debtCeiling?.toString(), 18),
+        rate: ethers.formatUnits(BigInt(response?.rate)?.toString(), 16),
+        minDeposit: ethers.formatUnits(response?.minDeposit?.toString(), 18),
+        collateralPrice: ethers.formatUnits(response?.collateralPrice?.toString(), 6),
       };
-
-      console.log(newResponse, 'new response');
 
       return dispatch(setCollateral(newResponse));
     } catch (error: any) {

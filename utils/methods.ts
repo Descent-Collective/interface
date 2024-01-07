@@ -32,4 +32,5 @@ const formatAmount = (amount: string | number) => {
   return num;
 };
 
-export { formatAddress, formatLargeNumber, roundupNumber, formatAmount };
+const waitTime = (seconds: number) => new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+export { formatAddress, formatLargeNumber, roundupNumber, formatAmount, waitTime };

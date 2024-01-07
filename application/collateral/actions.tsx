@@ -19,6 +19,8 @@ import useAlertActions from '../alert/actions';
 import useTransactionListener from '@/hooks/useTransaction';
 import { setClearInputs } from '../input';
 import { setLoadingAlert } from '../alert';
+import { ethers } from 'ethers';
+import { waitTime } from '@/utils';
 
 const useCollateralActions = () => {
   const { dispatch } = useSystemFunctions();
@@ -50,7 +52,20 @@ const useCollateralActions = () => {
       const descent = await _descentProvider();
       const response = await descent.getCollateralInfo();
 
-      return dispatch(setCollateral(response));
+      const newResponse = {
+        totalDepositedCollateral: ethers.formatUnits(
+          response?.totalDepositedCollateral?.toString(),
+          6,
+        ),
+        totalBorrowedAmount: ethers.formatUnits(response?.totalBorrowedAmount?.toString(), 18),
+        liquidationThreshold: ethers.formatUnits(response?.liquidationThreshold?.toString(), 16),
+        debtCeiling: ethers.formatUnits(response?.debtCeiling?.toString(), 18),
+        rate: ethers.formatUnits(BigInt(response?.rate)?.toString(), 16),
+        minDeposit: ethers.formatUnits(response?.minDeposit?.toString(), 18),
+        collateralPrice: ethers.formatUnits(response?.collateralPrice?.toString(), 6),
+      };
+
+      return dispatch(setCollateral(newResponse));
     } catch (error: any) {
       callback?.onError?.(error);
     } finally {
@@ -65,12 +80,14 @@ const useCollateralActions = () => {
       const descent = await _descentProvider();
 
       await descent.approveCollateral!(amount);
+
       dispatch(setLoadingApproveSupply(false));
 
       dispatch(setLoadingSupply(true));
       setTimeout(() => {
         dispatch(setLoadingAlert(true));
       }, 2800);
+
       const response = await descent.depositCollateral(amount);
 
       listener({

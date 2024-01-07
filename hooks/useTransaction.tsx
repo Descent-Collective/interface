@@ -61,7 +61,7 @@ const useTransactionListener = () => {
 
     const { type, amount } = hashDetails;
 
-    if (receipt!.status === 'success') {
+    if (receipt?.status == 'success') {
       switch (type) {
         case 'deposit':
           reset(transactionHash!);

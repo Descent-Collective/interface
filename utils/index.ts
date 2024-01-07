@@ -1,4 +1,4 @@
-import { formatAddress, formatLargeNumber, formatAmount, roundupNumber } from './methods';
+import { formatAddress, formatLargeNumber, formatAmount, roundupNumber, waitTime } from './methods';
 import { setLocalStorage, getLocalStorage, removeLocalStorage } from './localStorage';
 
 export {
@@ -9,4 +9,5 @@ export {
   formatLargeNumber,
   formatAmount,
   roundupNumber,
+  waitTime,
 };
