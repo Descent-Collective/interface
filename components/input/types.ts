@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 export interface Input {
   label: string;
   labelAlt?: string;
-  type?: "text" | "password" | "email" | "number" | "tel" | "url";
+  type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url';
   name: string;
   disabled?: boolean;
   valueAlt?: string;

@@ -1,43 +1,37 @@
-"use client";
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import classNames from "classnames";
-import {
-  DescentButton,
-  DescentClickAnimation,
-  DescentModal,
-} from "@/components";
-import useSystemFunctions from "@/hooks/useSystemFunctions";
-import useUserActions from "@/application/user/actions";
-import { SuccessAltIcon } from "@/public/icons";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
+'use client';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import classNames from 'classnames';
+import { DescentButton, DescentClickAnimation, DescentModal } from '@/components';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
+import useUserActions from '@/application/user/actions';
+import { SuccessAltIcon } from '@/public/icons';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi';
 
 const images = [
-  "https://images.unsplash.com/photo-1634108947682-12a8ddfc9b61?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fHZhdWx0fGVufDB8fDB8fHww",
-  "https://images.unsplash.com/photo-1526948531399-320e7e40f0ca?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGFzc2V0fGVufDB8fDB8fHww",
-  "https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBheSUyMGJhY2t8ZW58MHx8MHx8fDA%3D",
-  "https://images.unsplash.com/photo-1516570161787-2fd917215a3d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHJlY2VpdmUlMjBtb25leXxlbnwwfHwwfHx8MA%3D%3D",
+  'https://images.unsplash.com/photo-1634108947682-12a8ddfc9b61?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fHZhdWx0fGVufDB8fDB8fHww',
+  'https://images.unsplash.com/photo-1526948531399-320e7e40f0ca?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGFzc2V0fGVufDB8fDB8fHww',
+  'https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBheSUyMGJhY2t8ZW58MHx8MHx8fDA%3D',
+  'https://images.unsplash.com/photo-1516570161787-2fd917215a3d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHJlY2VpdmUlMjBtb25leXxlbnwwfHwwfHx8MA%3D%3D',
 ];
 
 const contents = [
   {
-    title: "Collateralise Your Vault.",
-    description:
-      "Fund your vault with USDC to generate enough borrowable asset.",
+    title: 'Collateralise Your Vault.',
+    description: 'Fund your vault with USDC to generate enough borrowable asset.',
   },
   {
-    title: "Borrow Asset.",
-    description: "Borrow xNGN from available borrowable asset in your vault.",
+    title: 'Borrow Asset.',
+    description: 'Borrow xNGN from available borrowable asset in your vault.',
   },
   {
-    title: "Pay Back Asset You Owe.",
-    description:
-      "Refund your borrowed asset to be able to retrieve deposited collateral.",
+    title: 'Pay Back Asset You Owe.',
+    description: 'Refund your borrowed asset to be able to retrieve deposited collateral.',
   },
   {
-    title: "Withdraw Your Collateral.",
-    description: "You can take out unlocked USDC from your vault.",
+    title: 'Withdraw Your Collateral.',
+    description: 'You can take out unlocked USDC from your vault.',
   },
 ];
 
@@ -87,8 +81,7 @@ const Onboarding = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.5 }}
-            className="bg-grey-750 rounded-[20px] px-4 py-7 md:py-[44px] w-full flex flex-col justify-center items-center my-6 md:my-[42px]"
-          >
+            className="bg-grey-750 rounded-[20px] px-4 py-7 md:py-[44px] w-full flex flex-col justify-center items-center my-6 md:my-[42px]">
             <h2 className="text-black-100 font-medium text-[18px] lg:text-xl">
               Connect your wallet.
             </h2>
@@ -97,11 +90,7 @@ const Onboarding = () => {
             </p>
 
             <div className="w-full md:w-[40%]">
-              <DescentButton
-                onClick={openConnectModal}
-                text="Connect Wallet"
-                variant="secondary"
-              />
+              <DescentButton onClick={openConnectModal} text="Connect Wallet" variant="secondary" />
             </div>
           </motion.div>
         </AnimatePresence>
@@ -120,15 +109,13 @@ const Onboarding = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
-              className="bg-grey-750 rounded-[20px] px-4 py-12 md:py-[64px] w-full flex flex-col justify-center items-center my-16 md:my-[72px]"
-            >
+              className="bg-grey-750 rounded-[20px] px-4 py-12 md:py-[64px] w-full flex flex-col justify-center items-center my-16 md:my-[72px]">
               <h2 className="text-black-100 font-medium text-[18px] lg:text-xl">
                 Set up your vault.
               </h2>
               <p className="text-center lg:w-[55%] text-sm lg:text-base text-grey-500 font-medium mt-2 mb-5">
-                Almost there. Just some necessary final steps. All you have to
-                do is to set up your vault by clicking the button below and
-                signing the agreement on the next page.
+                Almost there. Just some necessary final steps. All you have to do is to set up your
+                vault by clicking the button below and signing the agreement on the next page.
               </p>
 
               <div className="w-full md:w-[40%]">
@@ -151,8 +138,7 @@ const Onboarding = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
-              className="bg-grey-750 rounded-[20px] px-4 py-12 md:py-[64px] w-full flex flex-col justify-center items-center my-16 md:my-[72px]"
-            >
+              className="bg-grey-750 rounded-[20px] px-4 py-12 md:py-[64px] w-full flex flex-col justify-center items-center my-16 md:my-[72px]">
               <SuccessAltIcon />
               <h2 className="text-black-100 font-medium text-[18px] lg:text-xl mt-6">
                 Your vault has been set up successfully.
@@ -195,9 +181,9 @@ const Onboarding = () => {
                 {Array.from({ length: 4 }).map((_, index) => (
                   <div
                     key={index}
-                    className={classNames("w-3 h-3 rounded-full", {
-                      "bg-grey-950": activeStep !== index,
-                      "bg-blue-50": activeStep === index,
+                    className={classNames('w-3 h-3 rounded-full', {
+                      'bg-grey-950': activeStep !== index,
+                      'bg-blue-50': activeStep === index,
                     })}
                   />
                 ))}
@@ -211,8 +197,7 @@ const Onboarding = () => {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5 }}
-                >
+                  transition={{ duration: 0.5 }}>
                   <h2 className="text-black-100 text-[18px] lg:text-xl font-medium">
                     {contents[activeStep].title}
                   </h2>
@@ -222,22 +207,15 @@ const Onboarding = () => {
                 </motion.div>
               </AnimatePresence>
 
-              <DescentButton
-                onClick={nextStep}
-                text="Next"
-                variant="secondary"
-              />
+              <DescentButton onClick={nextStep} text="Next" variant="secondary" />
             </div>
 
             <div className="absolute -top-2.5 md:top-0 right-0">
               <DescentClickAnimation>
                 <button
                   type="button"
-                  className="py-[7px] px-5 lg:py-[9px] lg:px-[28px] bg-green-400 rounded-lg cursor-pointer"
-                >
-                  <div className="text-xs md:text-sm text-black-100 font-medium">
-                    Skip
-                  </div>
+                  className="py-[7px] px-5 lg:py-[9px] lg:px-[28px] bg-green-400 rounded-lg cursor-pointer">
+                  <div className="text-xs md:text-sm text-black-100 font-medium">Skip</div>
                 </button>
               </DescentClickAnimation>
             </div>

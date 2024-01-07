@@ -1,54 +1,48 @@
-import {
-  DiscordIcon,
-  GithubIcon,
-  GoIcon,
-  LogoIcon,
-  TwiiterIcon,
-} from "@/public/icons";
-import { DescentClickAnimation, DescentContainer } from "..";
-import classNames from "classnames";
+import { DiscordIcon, GithubIcon, GoIcon, LogoIcon, TwiiterIcon } from '@/public/icons';
+import { DescentClickAnimation, DescentContainer } from '..';
+import classNames from 'classnames';
 
 const content = [
   {
-    title: "About Us",
+    title: 'About Us',
     links: [
       {
-        title: "Terms",
-        link: "#",
+        title: 'Terms',
+        link: '#',
       },
       {
-        title: "Privacy Policy",
-        link: "#",
+        title: 'Privacy Policy',
+        link: '#',
       },
       {
-        title: "Community",
-        link: "#",
+        title: 'Community',
+        link: '#',
       },
     ],
   },
   {
-    title: "Resources",
+    title: 'Resources',
     links: [
       {
-        title: "Documentation",
-        link: "https://docs.descentdao.com",
+        title: 'Documentation',
+        link: 'https://docs.descentdao.com',
       },
       {
-        title: "Blog",
-        link: "#",
+        title: 'Blog',
+        link: '#',
       },
     ],
   },
   {
-    title: "Products",
+    title: 'Products',
     links: [
       {
-        title: "Borrow",
-        link: "https://descentdao.com/app",
+        title: 'Borrow',
+        link: 'https://descentdao.com/app',
       },
       {
-        title: "Earn",
-        link: "#",
+        title: 'Earn',
+        link: '#',
         isCommingSoon: true,
       },
     ],
@@ -67,26 +61,17 @@ const DescentFooter = () => {
                 <a
                   href="https://github.com/Descent-Collective"
                   target="_blank"
-                  rel="noopener noreferrer"
-                >
+                  rel="noopener noreferrer">
                   <GithubIcon />
                 </a>
               </DescentClickAnimation>
               <DescentClickAnimation>
-                <a
-                  href="https://twitter.com/DescentDAO"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://twitter.com/DescentDAO" target="_blank" rel="noopener noreferrer">
                   <TwiiterIcon />
                 </a>
               </DescentClickAnimation>
               <DescentClickAnimation>
-                <a
-                  href="https://discord.gg/avjHYmueHf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://discord.gg/avjHYmueHf" target="_blank" rel="noopener noreferrer">
                   <DiscordIcon />
                 </a>
               </DescentClickAnimation>
@@ -98,24 +83,17 @@ const DescentFooter = () => {
               {content.map((item, index) => (
                 <div
                   key={index}
-                  className="md:order-1 xl:order-2 flex flex-col gap-6 text-black-100"
-                >
-                  <h6 className="text-lg xl:text-xl font-semibold">
-                    {item.title}
-                  </h6>
+                  className="md:order-1 xl:order-2 flex flex-col gap-6 text-black-100">
+                  <h6 className="text-lg xl:text-xl font-semibold">{item.title}</h6>
                   {item.links.map((link, id) => (
                     <div key={id} className="flex items-center gap-3">
                       <a
                         href={link.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={classNames(
-                          "text-sm xl:text-base whitespace-nowrap",
-                          {
-                            "text-grey-500": link.isCommingSoon,
-                          }
-                        )}
-                      >
+                        className={classNames('text-sm xl:text-base whitespace-nowrap', {
+                          'text-grey-500': link.isCommingSoon,
+                        })}>
                         {link.title}
                       </a>
 
@@ -144,11 +122,8 @@ const DescentFooter = () => {
                 <DescentClickAnimation>
                   <button
                     type="button"
-                    className="h-11 rounded-[20px] flex items-center justify-center gap-1 px-3 bg-black-100"
-                  >
-                    <div className="text-xs md:text-sm font-medium text-white-50">
-                      Subscribe
-                    </div>
+                    className="h-11 rounded-[20px] flex items-center justify-center gap-1 px-3 bg-black-100">
+                    <div className="text-xs md:text-sm font-medium text-white-50">Subscribe</div>
 
                     <GoIcon />
                   </button>
@@ -159,9 +134,7 @@ const DescentFooter = () => {
         </div>
 
         <div className="md:flex flex-col gap-6 text-black-100 hidden xl:hidden pt-16">
-          <h6 className="text-lg xl:text-xl font-semibold">
-            Stay up to date with Descent
-          </h6>
+          <h6 className="text-lg xl:text-xl font-semibold">Stay up to date with Descent</h6>
           <div className="text-sm xl:text-base">
             Subscribe to the newsletter for Descent updates
           </div>
@@ -173,11 +146,8 @@ const DescentFooter = () => {
             <DescentClickAnimation>
               <button
                 type="button"
-                className="h-11 rounded-[20px] flex items-center justify-center gap-1 px-3 bg-black-100"
-              >
-                <div className="text-xs md:text-sm font-medium text-white-50">
-                  Subscribe
-                </div>
+                className="h-11 rounded-[20px] flex items-center justify-center gap-1 px-3 bg-black-100">
+                <div className="text-xs md:text-sm font-medium text-white-50">Subscribe</div>
 
                 <GoIcon />
               </button>

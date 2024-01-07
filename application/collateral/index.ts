@@ -1,8 +1,8 @@
-"use client";
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+'use client';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { Collateral, defaultCollateral } from "./types";
+import { Collateral, defaultCollateral } from './types';
 
 export interface CollateralState {
   collateral: Collateral;
@@ -31,7 +31,7 @@ const initialState: CollateralState = {
 };
 
 export const collateralReducer = createSlice({
-  name: "collateral",
+  name: 'collateral',
   initialState,
   reducers: {
     setLoadingSupply: (state, action: PayloadAction<boolean>) => {

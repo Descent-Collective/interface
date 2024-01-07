@@ -1,10 +1,10 @@
-"use client";
-import { ReactNode } from "react";
-import { Provider as ReduxProvider } from "react-redux";
+'use client';
+import { ReactNode } from 'react';
+import { Provider as ReduxProvider } from 'react-redux';
 
-import { store } from "@/application/store";
-import RainbowProvider from "@/config/rainbowkit";
-import AppHome from ".";
+import { store } from '@/application/store';
+import RainbowProvider from '@/config/rainbowkit';
+import AppHome from '.';
 
 const App = ({ children }: { children: ReactNode }) => {
   return (

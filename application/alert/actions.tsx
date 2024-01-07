@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import useSystemFunctions from "@/hooks/useSystemFunctions";
-import { setAlert } from ".";
-import { CallbackProps } from "../store";
-import { Alert } from "./types";
+import useSystemFunctions from '@/hooks/useSystemFunctions';
+import { setAlert } from '.';
+import { CallbackProps } from '../store';
+import { Alert } from './types';
 
 const useAlertActions = () => {
   const { dispatch } = useSystemFunctions();

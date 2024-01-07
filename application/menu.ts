@@ -1,5 +1,5 @@
-"use client";
-import { createSlice } from "@reduxjs/toolkit";
+'use client';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface MenuState {
   supply: boolean;
@@ -12,7 +12,7 @@ const initialState: MenuState = {
 };
 
 export const menuReducer = createSlice({
-  name: "menu",
+  name: 'menu',
   initialState,
   reducers: {
     setSupply: (state) => {

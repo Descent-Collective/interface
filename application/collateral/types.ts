@@ -9,13 +9,13 @@ type Collateral = {
 };
 
 const defaultCollateral: Collateral = {
-  totalDepositedCollateral: "0.0",
-  totalBorrowedAmount: "0.0",
-  liquidationThreshold: "0.0",
-  debtCeiling: "0.0",
-  rate: "0.0",
-  minDeposit: "0.0",
-  collateralPrice: "0.0",
+  totalDepositedCollateral: '0.0',
+  totalBorrowedAmount: '0.0',
+  liquidationThreshold: '0.0',
+  debtCeiling: '0.0',
+  rate: '0.0',
+  minDeposit: '0.0',
+  collateralPrice: '0.0',
 };
 
 export type { Collateral };

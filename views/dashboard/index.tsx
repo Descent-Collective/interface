@@ -1,8 +1,8 @@
-"use client";
-import { DescentContainer } from "@/components";
-import RightBox from "./right-box";
-import LeftBox from "./left-box";
-import Onboarding from "./onboarding";
+'use client';
+import { DescentContainer } from '@/components';
+import RightBox from './right-box';
+import LeftBox from './left-box';
+import Onboarding from './onboarding';
 
 const DashboardView = () => {
   return (

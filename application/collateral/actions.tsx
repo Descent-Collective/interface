@@ -1,8 +1,8 @@
-"use client";
-import Descent from "@descent-protocol/sdk";
-import { useAccount } from "wagmi";
+'use client';
+import Descent from '@descent-protocol/sdk';
+import { useAccount } from 'wagmi';
 
-import useSystemFunctions from "@/hooks/useSystemFunctions";
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 import {
   setCollateral,
   setLoading,
@@ -13,12 +13,14 @@ import {
   setLoadingRepay,
   setLoadingSupply,
   setLoadingWithdraw,
-} from ".";
-import { CallbackProps } from "../store";
-import useAlertActions from "../alert/actions";
-import useTransactionListener from "@/hooks/useTransaction";
-import { setClearInputs } from "../input";
-import { setLoadingAlert } from "../alert";
+} from '.';
+import { CallbackProps } from '../store';
+import useAlertActions from '../alert/actions';
+import useTransactionListener from '@/hooks/useTransaction';
+import { setClearInputs } from '../input';
+import { setLoadingAlert } from '../alert';
+import { ethers } from 'ethers';
+import { waitTime } from '@/utils';
 
 const useCollateralActions = () => {
   const { dispatch } = useSystemFunctions();
@@ -33,8 +35,8 @@ const useCollateralActions = () => {
       await activeConnector.connect();
 
       const connectedProvider = await activeConnector.getProvider();
-      const descentApp = await Descent.create("browser", {
-        collateral: "USDC",
+      const descentApp = await Descent.create('browser', {
+        collateral: 'USDC',
         ethereum: connectedProvider,
       });
 
@@ -50,7 +52,20 @@ const useCollateralActions = () => {
       const descent = await _descentProvider();
       const response = await descent.getCollateralInfo();
 
-      return dispatch(setCollateral(response));
+      const newResponse = {
+        totalDepositedCollateral: ethers.formatUnits(
+          response?.totalDepositedCollateral?.toString(),
+          6,
+        ),
+        totalBorrowedAmount: ethers.formatUnits(response?.totalBorrowedAmount?.toString(), 18),
+        liquidationThreshold: ethers.formatUnits(response?.liquidationThreshold?.toString(), 16),
+        debtCeiling: ethers.formatUnits(response?.debtCeiling?.toString(), 18),
+        rate: ethers.formatUnits(BigInt(response?.rate)?.toString(), 16),
+        minDeposit: ethers.formatUnits(response?.minDeposit?.toString(), 18),
+        collateralPrice: ethers.formatUnits(response?.collateralPrice?.toString(), 6),
+      };
+
+      return dispatch(setCollateral(newResponse));
     } catch (error: any) {
       callback?.onError?.(error);
     } finally {
@@ -58,28 +73,27 @@ const useCollateralActions = () => {
     }
   };
 
-  const depositCollateral = async (
-    amount: string,
-    callback?: CallbackProps
-  ) => {
+  const depositCollateral = async (amount: string, callback?: CallbackProps) => {
     try {
       dispatch(setLoadingApproveSupply(true));
 
       const descent = await _descentProvider();
 
       await descent.approveCollateral!(amount);
+
       dispatch(setLoadingApproveSupply(false));
 
       dispatch(setLoadingSupply(true));
       setTimeout(() => {
         dispatch(setLoadingAlert(true));
       }, 2800);
+
       const response = await descent.depositCollateral(amount);
 
       listener({
         hash: response?.hash,
         amount,
-        type: "deposit",
+        type: 'deposit',
       });
       _clearInputs();
       return callback?.onSuccess?.(response);
@@ -88,15 +102,13 @@ const useCollateralActions = () => {
       callback?.onError?.(error);
 
       alertUser({
-        title: "Collateral deposited unsuccessful.",
-        variant: "error",
+        title: 'Collateral deposited unsuccessful.',
+        variant: 'error',
         message: (
           <div>
-            Your collateral deposit of{" "}
-            <span className="text-black-100">
-              {Number(amount).toLocaleString()} USDC
-            </span>{" "}
-            was not successful. Please try again.
+            Your collateral deposit of{' '}
+            <span className="text-black-100">{Number(amount).toLocaleString()} USDC</span> was not
+            successful. Please try again.
           </div>
         ),
       });
@@ -120,7 +132,7 @@ const useCollateralActions = () => {
       listener({
         hash: response?.hash,
         amount,
-        type: "borrow",
+        type: 'borrow',
       });
       _clearInputs();
       return callback?.onSuccess?.(response);
@@ -129,15 +141,13 @@ const useCollateralActions = () => {
       callback?.onError?.(error);
 
       alertUser({
-        title: "Borrow unsuccessful.",
-        variant: "error",
+        title: 'Borrow unsuccessful.',
+        variant: 'error',
         message: (
           <div>
-            Your loan of{" "}
-            <span className="text-black-100">
-              {Number(amount).toLocaleString()} xNGN
-            </span>{" "}
-            was not successful. Please try again.
+            Your loan of{' '}
+            <span className="text-black-100">{Number(amount).toLocaleString()} xNGN</span> was not
+            successful. Please try again.
           </div>
         ),
       });
@@ -160,7 +170,7 @@ const useCollateralActions = () => {
       listener({
         hash: response?.hash,
         amount,
-        type: "repay",
+        type: 'repay',
       });
       _clearInputs();
       return callback?.onSuccess?.(response);
@@ -169,15 +179,13 @@ const useCollateralActions = () => {
       callback?.onError?.(error);
 
       alertUser({
-        title: "Loan repayment unsuccessful.",
-        variant: "error",
+        title: 'Loan repayment unsuccessful.',
+        variant: 'error',
         message: (
           <div>
-            Your loan repayment of{" "}
-            <span className="text-black-100">
-              {Number(amount).toLocaleString()} xNGN
-            </span>{" "}
-            was not successful. Please try again.
+            Your loan repayment of{' '}
+            <span className="text-black-100">{Number(amount).toLocaleString()} xNGN</span> was not
+            successful. Please try again.
           </div>
         ),
       });
@@ -187,10 +195,7 @@ const useCollateralActions = () => {
     }
   };
 
-  const withdrawCollateral = async (
-    amount: string,
-    callback?: CallbackProps
-  ) => {
+  const withdrawCollateral = async (amount: string, callback?: CallbackProps) => {
     try {
       dispatch(setLoadingWithdraw(true));
 
@@ -206,7 +211,7 @@ const useCollateralActions = () => {
       listener({
         hash: response?.hash,
         amount,
-        type: "withdraw",
+        type: 'withdraw',
       });
       _clearInputs();
       return callback?.onSuccess?.(response);
@@ -215,15 +220,13 @@ const useCollateralActions = () => {
       callback?.onError?.(error);
 
       alertUser({
-        title: "Collateral withdrawal unsuccessful.",
-        variant: "error",
+        title: 'Collateral withdrawal unsuccessful.',
+        variant: 'error',
         message: (
           <div>
-            Your withdrawal request of{" "}
-            <span className="text-black-100">
-              {Number(amount).toLocaleString()} USDC
-            </span>{" "}
-            was not successful. Please try again.
+            Your withdrawal request of{' '}
+            <span className="text-black-100">{Number(amount).toLocaleString()} USDC</span> was not
+            successful. Please try again.
           </div>
         ),
       });

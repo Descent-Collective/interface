@@ -1,5 +1,5 @@
 export interface Modal {
   close?: () => void;
-  variant?: "normal" | "large";
+  variant?: 'normal' | 'large';
   children: React.ReactNode;
 }

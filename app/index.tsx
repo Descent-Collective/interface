@@ -1,13 +1,8 @@
-"use client";
-import { DescentFooter, DescentMenu } from "@/components";
-import DescentHeader from "@/components/header";
-import {
-  DashboardBlob1,
-  DashboardBlob2,
-  DashboardBlob3,
-  DashboardBlob4,
-} from "@/public/icons";
-import { ReactNode } from "react";
+'use client';
+import { DescentFooter, DescentMenu } from '@/components';
+import DescentHeader from '@/components/header';
+import { DashboardBlob1, DashboardBlob2, DashboardBlob3, DashboardBlob4 } from '@/public/icons';
+import { ReactNode } from 'react';
 
 const AppHome = ({ children }: { children: ReactNode }) => {
   return (

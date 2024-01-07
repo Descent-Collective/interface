@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
-import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
-import useUserActions from "@/application/user/actions";
-import useCollateralActions from "@/application/collateral/actions";
-import { availableChains } from "@/config/rainbowkit";
+import { useEffect, useState } from 'react';
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
+import useUserActions from '@/application/user/actions';
+import useCollateralActions from '@/application/collateral/actions';
+import { availableChains } from '@/config/rainbowkit';
 
 const useDescent = () => {
-  const {
-    isDisconnected,
-    isConnected,
-    connector: activeConnector,
-  } = useAccount();
+  const { isDisconnected, isConnected, connector: activeConnector } = useAccount();
   const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
   const { getVaultInfo } = useUserActions();

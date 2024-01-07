@@ -1,9 +1,5 @@
-import { formatAddress, formatLargeNumber, formatAmount, roundupNumber } from "./methods";
-import {
-  setLocalStorage,
-  getLocalStorage,
-  removeLocalStorage,
-} from "./localStorage";
+import { formatAddress, formatLargeNumber, formatAmount, roundupNumber, waitTime } from './methods';
+import { setLocalStorage, getLocalStorage, removeLocalStorage } from './localStorage';
 
 export {
   formatAddress,
@@ -12,5 +8,6 @@ export {
   removeLocalStorage,
   formatLargeNumber,
   formatAmount,
-  roundupNumber
+  roundupNumber,
+  waitTime,
 };

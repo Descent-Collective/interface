@@ -1,5 +1,5 @@
 type Alert = {
-  variant: "success" | "error";
+  variant: 'success' | 'error';
   message: React.ReactNode | string;
   title: string;
 };

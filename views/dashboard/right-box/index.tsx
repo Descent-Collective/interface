@@ -1,11 +1,11 @@
-import { useState } from "react";
-import classNames from "classnames";
-import SupplyTab from "./supply";
-import BorrowTab from "./borrow";
+import { useState } from 'react';
+import classNames from 'classnames';
+import SupplyTab from './supply';
+import BorrowTab from './borrow';
 
 const RightBox = ({ active = 0 }: { active?: number }) => {
   const [activeTab, setActiveTab] = useState(active);
-  const tabs = ["Deposit", "Borrow"];
+  const tabs = ['Deposit', 'Borrow'];
 
   const tabComponents = [<SupplyTab key={0} />, <BorrowTab key={1} />];
   return (
@@ -16,12 +16,11 @@ const RightBox = ({ active = 0 }: { active?: number }) => {
             key={index}
             onClick={() => setActiveTab(index)}
             className={classNames(
-              "cursor-pointer h-full flex justify-center items-center text-black-100 font-semibold text-[13px] w-1/2 transition-all duration-700 ease-in-out",
+              'cursor-pointer h-full flex justify-center items-center text-black-100 font-semibold text-[13px] w-1/2 transition-all duration-700 ease-in-out',
               {
-                "rounded-[7px] bg-white-50 tab-shadow": index === activeTab,
-              }
-            )}
-          >
+                'rounded-[7px] bg-white-50 tab-shadow': index === activeTab,
+              },
+            )}>
             {tab}
           </div>
         ))}
