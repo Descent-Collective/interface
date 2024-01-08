@@ -78,7 +78,7 @@ const Button = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
               <div className="flex items-center justify-between">
                 <h3 className="text-black-100 text-lg md:text-2xl font-semibold">Wallet</h3>
                 <DescentClickAnimation onClick={() => setShowModal(false)}>
-                  <div className="p-2 flex items-center justify-center rounded-[20px] bg-grey-750">
+                  <div className="p-2 cursor-pointer flex items-center justify-center rounded-[20px] bg-grey-750">
                     <CloseIcon />
                   </div>
                 </DescentClickAnimation>
