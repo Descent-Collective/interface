@@ -2,8 +2,8 @@ import { useState } from 'react';
 import classNames from 'classnames';
 
 import { DescentButton, DescentHint, DescentModal } from '@/components';
-import RepayModal from './modal/repay';
-import WithdrawModal from './modal/withdraw';
+import RepayModal from './modal/repay/repay';
+import WithdrawModal from './modal/withdraw/withdraw';
 import { formatAmount, roundupNumber } from '@/utils';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 

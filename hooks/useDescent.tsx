@@ -3,6 +3,7 @@ import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 import useUserActions from '@/application/user/actions';
 import useCollateralActions from '@/application/collateral/actions';
 import { availableChains } from '@/config/rainbowkit';
+import { createPublicClient, http } from 'viem';
 
 const useDescent = () => {
   const { isDisconnected, isConnected, connector: activeConnector } = useAccount();
@@ -19,6 +20,11 @@ const useDescent = () => {
       getCollateralInfo();
     }
   };
+
+  const publicClient = createPublicClient({
+    chain: chain,
+    transport: http(),
+  });
 
   const setup = () => {
     if (chain) {
@@ -43,7 +49,7 @@ const useDescent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chain, isConnected, isDisconnected, activeConnector]);
 
-  return { showButton };
+  return { showButton, publicClient };
 };
 
 export default useDescent;

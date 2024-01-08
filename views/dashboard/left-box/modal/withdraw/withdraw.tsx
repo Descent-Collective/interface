@@ -3,6 +3,7 @@ import { DescentButton, DescentInput } from '@/components';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { formatAmount } from '@/utils';
 import useCollateralActions from '@/application/collateral/actions';
+import VaultChanges from './vault-changes';
 
 const WithdrawModal = ({ close }: { close: () => void }) => {
   const { userState, collateralState } = useSystemFunctions();
@@ -47,6 +48,7 @@ const WithdrawModal = ({ close }: { close: () => void }) => {
           error={error}
         />
       </div>
+      <VaultChanges amount={Number(amountWithoutComma)} />
 
       <div className="mt-2">
         <div>
