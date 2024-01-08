@@ -130,6 +130,7 @@ const useUserActions = () => {
     }
 
     dispatch(setLoadingAlert(false));
+    setHash(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [receipt, isError, isLoading, hash]);
 

@@ -52,8 +52,10 @@ const useTransactionListener = () => {
     dispatch(setLoadingAlert(false));
     setTransactionHash(undefined);
     delete data?.[hash!];
-    getVaultInfo();
-    getCollateralInfo();
+    setTimeout(() => {
+      getVaultInfo();
+      getCollateralInfo();
+    }, 4300);
   };
 
   const checkTransactionStatus = async () => {

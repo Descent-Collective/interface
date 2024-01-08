@@ -20,7 +20,6 @@ import useTransactionListener from '@/hooks/useTransaction';
 import { setClearInputs } from '../input';
 import { setLoadingAlert } from '../alert';
 import { ethers } from 'ethers';
-import { waitTime } from '@/utils';
 import { useEffect, useState } from 'react';
 
 const useCollateralActions = () => {
@@ -115,7 +114,7 @@ const useCollateralActions = () => {
 
   const depositCollateralAfterApproval = async () => {
     try {
-      if (receipt?.status != 'success' || hash === undefined) {
+      if (receipt?.status != 'success') {
         return;
       }
 
@@ -136,6 +135,9 @@ const useCollateralActions = () => {
         type: 'deposit',
       });
 
+      setHash(undefined);
+      setAmount('');
+
       _clearInputs();
     } catch (error: any) {
       dispatch(setLoadingAlert(false));
@@ -153,8 +155,6 @@ const useCollateralActions = () => {
       });
     } finally {
       dispatch(setLoadingSupply(false));
-      setHash(undefined);
-      setAmount('');
     }
   };
 

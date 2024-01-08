@@ -2,12 +2,12 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import classNames from 'classnames';
+import { useAccount } from 'wagmi';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { DescentButton, DescentClickAnimation, DescentModal } from '@/components';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import useUserActions from '@/application/user/actions';
 import { SuccessAltIcon } from '@/public/icons';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { useAccount } from 'wagmi';
 import { getLocalStorage, removeLocalStorage } from '@/utils';
 import { setDisconnectWallet } from '@/application/user';
 
