@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useWaitForTransaction } from 'wagmi';
 import useSystemFunctions from './useSystemFunctions';
 import { setLoadingAlert } from '@/application/alert';
+import { waitForTransaction } from 'wagmi/actions';
 
 type TransactionStatus = {
   type: 'approve' | 'deposit' | 'borrow' | 'repay' | 'withdraw';
@@ -63,6 +64,8 @@ const useTransactionListener = () => {
     if (!hashDetails) return;
 
     const { type, amount } = hashDetails;
+
+    const receipt = await waitForTransaction({ confirmations: 3, hash: transactionHash! });
 
     if (receipt?.status == 'success') {
       switch (type) {
