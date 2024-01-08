@@ -21,11 +21,6 @@ const useDescent = () => {
     }
   };
 
-  const publicClient = createPublicClient({
-    chain: chain,
-    transport: http(),
-  });
-
   const setup = () => {
     if (chain) {
       const { id } = chain;
@@ -49,7 +44,7 @@ const useDescent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chain, isConnected, isDisconnected, activeConnector]);
 
-  return { showButton, publicClient };
+  return { showButton };
 };
 
 export default useDescent;
