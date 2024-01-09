@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import { DescentButton, DescentHint, DescentModal } from '@/components';
@@ -44,13 +44,23 @@ const ThirdItem = () => {
 };
 
 const Item = ({ item, index, items }: { item: any; index: number; items: any[] }) => {
+  const { inputState } = useSystemFunctions();
+
   const [open, setOpen] = useState(false);
+  const { clear } = inputState;
 
   const handleModal = () => {
     setOpen(!open);
   };
 
   const isWithdraw = item.title === 'Available Collateral';
+
+  useEffect(() => {
+    if (clear) {
+      setOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clear]);
   return (
     <>
       <div

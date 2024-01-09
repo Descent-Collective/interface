@@ -40,6 +40,10 @@ const DescentButton = ({
   icon,
   leftIcon,
 }: Button) => {
+  const { alertState } = useSystemFunctions();
+
+  const { loading: alertLoading } = alertState;
+
   if (variant === 'secondary') {
     return (
       <div className="relative z-20 w-full h-12 rounded-lg bg-black-100">
@@ -98,11 +102,11 @@ const DescentButton = ({
             variant === 'action2',
         },
       )}
-      disabled={disabled}
+      disabled={alertLoading || disabled}
       type={type}>
       {leftIcon && leftIcon}
 
-      <div>{loading ? <ButtonLoading /> : text}</div>
+      <div>{loading || alertLoading ? <ButtonLoading /> : text}</div>
 
       {icon && icon}
     </motion.button>

@@ -1,5 +1,5 @@
 'use client';
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface MenuState {
   supply: boolean;
@@ -15,14 +15,14 @@ export const menuReducer = createSlice({
   name: 'menu',
   initialState,
   reducers: {
-    setSupply: (state) => {
+    setSupply: (state, action: PayloadAction<boolean>) => {
       state.borrow = false;
-      state.supply = !state.supply;
+      state.supply = action.payload;
     },
 
-    setBorrow: (state) => {
+    setBorrow: (state, action: PayloadAction<boolean>) => {
       state.supply = false;
-      state.borrow = !state.borrow;
+      state.borrow = action.payload;
     },
   },
 });

@@ -1,11 +1,17 @@
+import React from 'react';
 import useAlertActions from '@/application/alert/actions';
-import useCollateralActions from '@/application/collateral/actions';
 import useUserActions from '@/application/user/actions';
-import React, { useState, useEffect } from 'react';
-import { useWaitForTransaction } from 'wagmi';
 import useSystemFunctions from './useSystemFunctions';
 import { setLoadingAlert } from '@/application/alert';
 import { waitForTransaction } from 'wagmi/actions';
+import { setClearInputs } from '@/application/input';
+import {
+  setLoadingBorrow,
+  setLoadingRepay,
+  setLoadingSupply,
+  setLoadingWithdraw,
+} from '@/application/collateral';
+import { setBorrow, setSupply } from '@/application/menu';
 
 type TransactionStatus = {
   type: 'approve' | 'deposit' | 'borrow' | 'repay' | 'withdraw';
@@ -13,64 +19,38 @@ type TransactionStatus = {
   hash: `0x${string}`;
 };
 
-type Data = {
-  [key: `0x${string}`]: {
-    type: 'approve' | 'deposit' | 'borrow' | 'repay' | 'withdraw';
-    amount?: string;
-  };
-};
-
 const useTransactionListener = () => {
   const { dispatch } = useSystemFunctions();
   const { alertUser } = useAlertActions();
   const { getVaultInfo, getCollateralInfo } = useUserActions();
 
-  const [transactionHash, setTransactionHash] = useState<`0x${string}` | undefined>(undefined);
-  const [data, setData] = useState<Data>();
+  const _clearInputs = () => {
+    dispatch(setClearInputs(true));
 
-  const {
-    data: receipt,
-    isError,
-    isLoading,
-  } = useWaitForTransaction({
-    hash: transactionHash,
-    enabled: !!transactionHash, // Only enable when transactionHash is not null
-    confirmations: 2,
-  });
-
-  const listener = ({ hash, type, amount }: TransactionStatus) => {
-    setTransactionHash(hash);
-    setData({
-      ...data,
-      [hash]: {
-        type,
-        amount,
-      },
-    });
+    setTimeout(() => {
+      dispatch(setClearInputs(false));
+    }, 1000);
   };
 
-  const reset = (hash: `0x${string}`) => {
+  const reset = () => {
     dispatch(setLoadingAlert(false));
-    setTransactionHash(undefined);
-    delete data?.[hash!];
+    _clearInputs();
+
     setTimeout(() => {
       getVaultInfo();
       getCollateralInfo();
-    }, 4300);
+    }, 4000);
   };
 
-  const checkTransactionStatus = async () => {
-    const hashDetails = data?.[transactionHash!];
-    if (!hashDetails) return;
-
-    const { type, amount } = hashDetails;
-
-    const receipt = await waitForTransaction({ confirmations: 3, hash: transactionHash! });
+  const listener = async ({ hash, type, amount }: TransactionStatus) => {
+    dispatch(setLoadingAlert(true));
+    const receipt = await waitForTransaction({ confirmations: 3, hash });
 
     if (receipt?.status == 'success') {
+      reset();
       switch (type) {
         case 'deposit':
-          reset(transactionHash!);
+          dispatch(setLoadingSupply(false));
           return alertUser({
             title: 'Bravo! Collateral deposited.',
             variant: 'success',
@@ -84,7 +64,7 @@ const useTransactionListener = () => {
           });
 
         case 'borrow':
-          reset(transactionHash!);
+          dispatch(setLoadingBorrow(false));
           return alertUser({
             title: 'Bravo! xNGN borrowed.',
             variant: 'success',
@@ -98,7 +78,7 @@ const useTransactionListener = () => {
           });
 
         case 'repay':
-          reset(transactionHash!);
+          dispatch(setLoadingRepay(false));
           return alertUser({
             title: 'Bravo! Loan Repayed.',
             variant: 'success',
@@ -112,7 +92,7 @@ const useTransactionListener = () => {
           });
 
         case 'withdraw':
-          reset(transactionHash!);
+          dispatch(setLoadingWithdraw(false));
           return alertUser({
             title: 'Bravo! Collateral Withdrawn.',
             variant: 'success',
@@ -128,20 +108,7 @@ const useTransactionListener = () => {
           break;
       }
     }
-
-    if (isError) {
-      // There was an error with the transaction
-    }
-
-    if (isLoading) {
-      // Transaction is still pending
-    }
   };
-
-  useEffect(() => {
-    checkTransactionStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [receipt, isError, isLoading, transactionHash]);
 
   return { listener };
 };
