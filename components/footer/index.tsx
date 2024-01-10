@@ -79,7 +79,7 @@ const DescentFooter = () => {
           </div>
 
           <div className="flex flex-col md:flex-row md:justify-between gap-12 xl:gap-20">
-            <div className="flex flex-col md:flex-row gap-12 md:gap-20">
+            <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-20">
               {content.map((item, index) => (
                 <div
                   key={index}

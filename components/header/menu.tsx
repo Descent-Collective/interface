@@ -40,6 +40,16 @@ const MenuComponent = ({ isOpen, setIsOpen }: IMenu) => {
           </DescentClickAnimation>
         </div>
 
+        <a href="https://faucet.circle.com/" target="_blank" rel="noopener noreferrer">
+          <DescentClickAnimation>
+            <button
+              type="button"
+              className="mt-5 h-12 py-3 px-[14px] rounded-3xl border border-black-100 font-medium text-base text-black-100">
+              Get Test USDC
+            </button>
+          </DescentClickAnimation>
+        </a>
+
         <div className="mt-8 flex flex-col gap-2">
           {links.map((item, index) => (
             <DescentClickAnimation key={index}>

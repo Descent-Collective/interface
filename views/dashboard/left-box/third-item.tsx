@@ -84,7 +84,7 @@ const Item = ({ item, index, items }: { item: any; index: number; items: any[] }
           </div>
 
           {item.buttonText && (
-            <div className="hidden md:block md:min-w-[70px]">
+            <div className="hidden xl:block xl:min-w-[70px]">
               <DescentButton
                 disabled={item.disabled}
                 variant="action"
@@ -96,7 +96,7 @@ const Item = ({ item, index, items }: { item: any; index: number; items: any[] }
         </div>
 
         {item.buttonText && (
-          <div className="md:hidden min-w-[50px] mt-2">
+          <div className="xl:hidden min-w-[50px] mt-2">
             <DescentButton
               disabled={item.disabled}
               variant="action"

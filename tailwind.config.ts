@@ -36,6 +36,8 @@ const config: Config = {
           300: '#FBFAF9',
           350: '#EEEEEE',
           400: '#FEFEFF',
+          450: '#E8E8E8',
+          500: '#FDFDFD',
         },
         green: {
           50: '#26A989',
@@ -66,6 +68,7 @@ const config: Config = {
           850: '#E7E7E7',
           900: '#F6F6F6',
           950: '#D9D9D9',
+          1000: 'rgba(248, 248, 248, 0.20)',
         },
         red: {
           50: '#FF7663',

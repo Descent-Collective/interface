@@ -6,7 +6,7 @@ import { availableChains } from '@/config/rainbowkit';
 import { createPublicClient, http } from 'viem';
 
 const useDescent = () => {
-  const { isDisconnected, isConnected, connector: activeConnector } = useAccount();
+  const { isDisconnected, isConnected, connector: activeConnector, address } = useAccount();
   const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
   const { getVaultInfo } = useUserActions();
@@ -42,7 +42,7 @@ const useDescent = () => {
   useEffect(() => {
     setup();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chain, isConnected, isDisconnected, activeConnector]);
+  }, [chain, isConnected, isDisconnected, activeConnector, address]);
 
   return { showButton };
 };
