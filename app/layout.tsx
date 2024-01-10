@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Descent Protocol',
-  description: 'Descent Protocol is a decentralized stablecoin protocol.',
+  description: 'Descentralized Lending Protocol for Frontier Markets',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
