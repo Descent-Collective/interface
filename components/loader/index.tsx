@@ -8,8 +8,6 @@ const DescentLoader = () => {
   const { userState } = useSystemFunctions();
   const { isConnected } = useAccount();
 
-  console.log(isConnected);
-
   const [showLoader, setShowLoader] = useState(true);
 
   const { user } = userState;
