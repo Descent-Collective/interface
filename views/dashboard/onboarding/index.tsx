@@ -139,7 +139,7 @@ const Onboarding = () => {
               </h2>
               <p className="text-center lg:w-[55%] text-sm lg:text-base text-grey-500 font-medium mt-2 mb-5">
                 Almost there. Just some necessary final steps. All you have to do is to set up your
-                vault by clicking the button below and signing the agreement on the next page.
+                vault by clicking the button below and signing the transaction on the next page.
               </p>
 
               <div className="w-full md:w-[40%]">
