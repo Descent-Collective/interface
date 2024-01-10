@@ -10,12 +10,13 @@ import useUserActions from '@/application/user/actions';
 import { SuccessAltIcon } from '@/public/icons';
 import { getLocalStorage, removeLocalStorage } from '@/utils';
 import { setDisconnectWallet } from '@/application/user';
+import Image from 'next/image';
 
 const images = [
-  'https://images.unsplash.com/photo-1634108947682-12a8ddfc9b61?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fHZhdWx0fGVufDB8fDB8fHww',
-  'https://images.unsplash.com/photo-1526948531399-320e7e40f0ca?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGFzc2V0fGVufDB8fDB8fHww',
-  'https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBheSUyMGJhY2t8ZW58MHx8MHx8fDA%3D',
-  'https://images.unsplash.com/photo-1516570161787-2fd917215a3d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHJlY2VpdmUlMjBtb25leXxlbnwwfHwwfHx8MA%3D%3D',
+  'https://res.cloudinary.com/njokuscript/image/upload/v1704908157/deposit_asset_yev0ce.gif',
+  'https://res.cloudinary.com/njokuscript/image/upload/v1704908157/borrow_asset_qnqktt.gif',
+  'https://res.cloudinary.com/njokuscript/image/upload/v1704908156/repay_asset_bstux4.gif',
+  'https://res.cloudinary.com/njokuscript/image/upload/v1704908157/borrow_asset_qnqktt.gif',
 ];
 
 const contents = [
@@ -138,7 +139,7 @@ const Onboarding = () => {
               </h2>
               <p className="text-center lg:w-[55%] text-sm lg:text-base text-grey-500 font-medium mt-2 mb-5">
                 Almost there. Just some necessary final steps. All you have to do is to set up your
-                vault by clicking the button below and signing the agreement on the next page.
+                vault by clicking the button below and signing the transaction on the next page.
               </p>
 
               <div className="w-full md:w-[40%]">
@@ -184,20 +185,14 @@ const Onboarding = () => {
         {activeStep < 4 && (
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-12 xl:gap-[60px] relative">
             <div className="md:w-[65%] xl:w-[57%] flex flex-col md:items-center gap-4">
-              <div className="order-2 md:order-1 py-[15px] px-4 rounded-[20px] bg-grey-750 flex justify-center items-center w-full h-[300px] md:h-[400px]">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={activeStep}
-                    src={images[activeStep]}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    variants={variants}
-                    transition={{ duration: 0.4 }}
-                    alt={`Step ${activeStep + 1}`}
-                    className="h-full rounded-[20px] object-cover"
-                  />
-                </AnimatePresence>
+              <div className="order-2 md:order-1 py-[15px] px-4 rounded-[20px] bg-white flex justify-center items-center w-full h-[300px] md:h-[400px]">
+                <Image
+                  src={images[activeStep]}
+                  height={500}
+                  width={500}
+                  alt={`Step ${activeStep + 1}`}
+                  unoptimized={true}
+                />
               </div>
 
               <div className="order-1 md:order-2 flex items-center gap-3">
