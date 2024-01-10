@@ -9,15 +9,27 @@ import useSystemFunctions from '@/hooks/useSystemFunctions';
 import Button from './button';
 
 const DescentHeader = () => {
-  const { collateralState } = useSystemFunctions();
+  const { collateralState, userState } = useSystemFunctions();
   const [isOpen, setIsOpen] = useState(false);
   const [domLoaded, setDomLoaded] = useState(false);
 
+  const { user } = userState;
   const { collateral } = collateralState;
 
   useEffect(() => {
     setDomLoaded(true);
   }, []);
+
+  const collateralWorthInCurrency =
+    Number(user.depositedCollateral) * Number(collateral.collateralPrice);
+  const newCollateralRatio =
+    ((Number(user.borrowedAmount) / Number(collateralWorthInCurrency)) * 100) / 1;
+
+  // ( newCollateralRatio/ liquidationThreshold) * (currentPrice / 1)
+
+  const liquidationPrice =
+    (Number(newCollateralRatio) / Number(collateral.liquidationThreshold)) *
+    (Number(collateral.collateralPrice) / 1);
 
   return (
     <>
@@ -102,7 +114,9 @@ const DescentHeader = () => {
               </div>
 
               <div className="hidden lg:block mt-3 px-[14px] py-3 rounded-[20px] border border-white-450 bg-white-500 text-xs font-medium text-grey-500">
-                Your Vault Liquidation Price: ₦0.00/USDC
+                Your Vault Liquidation Price: ₦
+                {Number.isNaN(liquidationPrice) ? '0.00' : liquidationPrice.toFixed(2)}
+                /USDC
               </div>
             </div>
           </div>
