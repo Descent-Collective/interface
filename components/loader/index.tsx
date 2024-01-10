@@ -1,13 +1,26 @@
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useAccount } from 'wagmi';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { BottomLogoIcon, TopLogoIcon } from '@/public/icons';
-import { motion } from 'framer-motion';
 
 const DescentLoader = () => {
   const { userState } = useSystemFunctions();
+  const { isConnected } = useAccount();
+
+  console.log(isConnected);
+
+  const [showLoader, setShowLoader] = useState(true);
 
   const { user } = userState;
 
-  if (user.doneFetching) return null;
+  useEffect(() => {
+    setTimeout(() => {
+      setShowLoader(false);
+    }, 3500);
+  }, []);
+
+  if (user.doneFetching || (!isConnected && !showLoader)) return null;
 
   return (
     <div className="bg-white-50 fixed top-0 left-0 h-screen w-screen z-[9999999] flex flex-col justify-center items-center">
