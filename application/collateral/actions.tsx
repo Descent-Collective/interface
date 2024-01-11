@@ -76,7 +76,6 @@ const useCollateralActions = () => {
       const descent = await _descentProvider();
 
       const allowance = await descent.collateralTokenAllowance(address);
-      console.log(allowance, 'here');
       if (allowance >= amount) {
         dispatch(setLoadingSupply(true));
 
