@@ -23,7 +23,8 @@ import { ethers } from 'ethers';
 
 const useCollateralActions = () => {
   const { dispatch } = useSystemFunctions();
-  const { connector: activeConnector } = useAccount();
+  const { address, connector: activeConnector } = useAccount();
+
   const { alertUser } = useAlertActions();
   const { listener } = useTransactionListener();
 
@@ -72,9 +73,18 @@ const useCollateralActions = () => {
 
   const depositCollateral = async (amount: string, callback?: CallbackProps) => {
     try {
-      dispatch(setLoadingApproveSupply(true));
-
       const descent = await _descentProvider();
+
+      const allowance = await descent.collateralTokenAllowance(address);
+      console.log(allowance, 'here');
+      if (allowance >= amount) {
+        dispatch(setLoadingSupply(true));
+
+        await _depositCollateralAfterApproval(amount);
+        return callback?.onSuccess?.();
+      }
+
+      dispatch(setLoadingApproveSupply(true));
 
       const approve = await descent.approveCollateral!(amount);
       const receipt = await waitForTransaction({ confirmations: 3, hash: approve?.hash });
