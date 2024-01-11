@@ -10,9 +10,9 @@ const VaultChanges = ({ amount }: { amount: number }) => {
   const { collateral } = collateralState;
 
   const collateralWorthInCurrency =
-    Number(user.availableCollateral) * Number(collateral.collateralPrice);
+    Number(user.depositedCollateral) * Number(collateral.collateralPrice);
   const newCollateralRatio =
-    ((Number(user.availablexNGN) / Number(collateralWorthInCurrency)) * 100) / 1;
+    (((Number(user.borrowedAmount) + amount) / Number(collateralWorthInCurrency)) * 100) / 1;
 
   // ( newCollateralRatio/ liquidationThreshold) * (currentPrice / 1)
 

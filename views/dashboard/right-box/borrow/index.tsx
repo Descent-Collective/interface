@@ -43,7 +43,7 @@ const BorrowTab = () => {
 
     const amountWithoutComma = amount.replace(/,/g, '');
 
-    borrowXNGN(amountWithoutComma);
+    await borrowXNGN(amountWithoutComma);
   };
 
   return (

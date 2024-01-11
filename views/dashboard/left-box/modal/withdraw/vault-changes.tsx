@@ -10,7 +10,7 @@ const VaultChanges = ({ amount }: { amount: number }) => {
   const { collateral } = collateralState;
 
   const collateralWorthInCurrency =
-    (Number(user.depositedCollateral) + amount) * Number(collateral.collateralPrice);
+    (Number(user.depositedCollateral) - amount) * Number(collateral.collateralPrice);
   const newCollateralRatio =
     ((Number(user.borrowedAmount) / Number(collateralWorthInCurrency)) * 100) / 1;
 

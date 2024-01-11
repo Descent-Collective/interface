@@ -77,6 +77,7 @@ const useCollateralActions = () => {
 
       const allowance = await descent.collateralTokenAllowance(address);
       if (allowance >= amount) {
+        dispatch(setLoadingApproveSupply(false));
         dispatch(setLoadingSupply(true));
 
         await _depositCollateralAfterApproval(amount);
