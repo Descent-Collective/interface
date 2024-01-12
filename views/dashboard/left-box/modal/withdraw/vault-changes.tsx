@@ -36,7 +36,7 @@ const VaultChanges = ({ amount }: { amount: number }) => {
     },
     {
       title: 'Vault xNGN Debt',
-      value: `${formatAmount(Number(user.borrowedAmount) + Number(amount))} xNGN`,
+      value: `${formatAmount(Number(user.borrowedAmount))} xNGN`,
     },
     {
       title: 'Available Collateral',
