@@ -97,6 +97,8 @@ const useCollateralActions = () => {
       return callback?.onSuccess?.();
     } catch (error: any) {
       dispatch(setLoadingAlert(false));
+      dispatch(setLoadingApproveSupply(false));
+      dispatch(setLoadingSupply(false));
       callback?.onError?.(error);
 
       alertUser({
@@ -126,6 +128,7 @@ const useCollateralActions = () => {
         amount,
         type: 'borrow',
       });
+      await getCollateralInfo();
       return callback?.onSuccess?.(response);
     } catch (error: any) {
       callback?.onError?.(error);
@@ -157,6 +160,7 @@ const useCollateralActions = () => {
         amount,
         type: 'repay',
       });
+      await getCollateralInfo();
       return callback?.onSuccess?.(response);
     } catch (error: any) {
       callback?.onError?.(error);
@@ -189,6 +193,7 @@ const useCollateralActions = () => {
         amount,
         type: 'withdraw',
       });
+      await getCollateralInfo();
       return callback?.onSuccess?.(response);
     } catch (error: any) {
       callback?.onError?.(error);
