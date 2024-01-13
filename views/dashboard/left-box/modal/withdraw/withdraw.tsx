@@ -4,6 +4,7 @@ import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { formatAmount } from '@/utils';
 import useCollateralActions from '@/application/collateral/actions';
 import VaultChanges from './vault-changes';
+import { ButtonLoadingState } from '@/components/button/types';
 
 const WithdrawModal = ({ close }: { close: () => void }) => {
   const { userState, collateralState } = useSystemFunctions();
@@ -53,6 +54,8 @@ const WithdrawModal = ({ close }: { close: () => void }) => {
       <div className="mt-2">
         <div>
           <DescentButton
+            key={1}
+            loadingType={ButtonLoadingState.withdraw}
             loading={loadingWithdraw}
             disabled={!valid || loadingWithdraw}
             type="submit"
@@ -61,7 +64,7 @@ const WithdrawModal = ({ close }: { close: () => void }) => {
         </div>
 
         <div className="mt-4">
-          <DescentButton onClick={close} variant="info" text="Cancel" />
+          <DescentButton key={2} onClick={close} variant="info" text="Cancel" />
         </div>
       </div>
     </form>

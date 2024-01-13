@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
 
-import { Button } from './types';
+import { Button, ButtonLoadingState } from './types';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 
-const ButtonLoading = () => {
+const ButtonLoading = ({ type }: { type?: ButtonLoadingState }) => {
   const { collateralState, userState } = useSystemFunctions();
   const { loadingApproveSupply, loadingBorrow, loadingSupply, loadingRepay, loadingWithdraw } =
     collateralState;
@@ -14,17 +14,17 @@ const ButtonLoading = () => {
   return (
     <div className="flex justify-center items-center gap-2">
       <div className="text-grey-50 text-sm md:text-base">
-        {loadingBorrow && 'Borrowing...'}
+        {type == ButtonLoadingState.borrow && loadingBorrow && 'Borrowing...'}
 
-        {loadingApproveSupply && 'Approving...'}
+        {type == ButtonLoadingState.approve && loadingApproveSupply && 'Approving...'}
 
-        {loadingSupply && 'Depositing...'}
+        {type == ButtonLoadingState.deposit && loadingSupply && 'Depositing...'}
 
-        {loadingRepay && 'Repaying...'}
+        {type == ButtonLoadingState.repay && loadingRepay && 'Repaying...'}
 
-        {loadingWithdraw && 'Withdrawing...'}
+        {type == ButtonLoadingState.withdraw && loadingWithdraw && 'Withdrawing...'}
 
-        {loadingSetup && 'Setting up...'}
+        {type == ButtonLoadingState.setup && loadingSetup && 'Setting up...'}
       </div>
     </div>
   );
@@ -39,6 +39,7 @@ const DescentButton = ({
   variant = 'primary',
   icon,
   leftIcon,
+  loadingType,
 }: Button) => {
   const { alertState } = useSystemFunctions();
 
@@ -59,7 +60,7 @@ const DescentButton = ({
           )}
           disabled={disabled}
           type={type}>
-          <div>{loading ? <ButtonLoading /> : text}</div>
+          <div>{loading ? <ButtonLoading type={loadingType} /> : text}</div>
         </motion.button>
       </div>
     );
@@ -106,7 +107,7 @@ const DescentButton = ({
       type={type}>
       {leftIcon && leftIcon}
 
-      <div>{loading || alertLoading ? <ButtonLoading /> : text}</div>
+      <div>{loading || alertLoading ? <ButtonLoading type={loadingType} /> : text}</div>
 
       {icon && icon}
     </motion.button>

@@ -5,6 +5,7 @@ import { DescentButton, DescentInput } from '@/components';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { formatAmount } from '@/utils';
 import VaultChanges from './vault-changes';
+import { ButtonLoadingState } from '@/components/button/types';
 
 const SupplyTab = () => {
   const { collateralState, userState } = useSystemFunctions();
@@ -17,6 +18,9 @@ const SupplyTab = () => {
   const { user } = userState;
 
   const loading = loadingApproveSupply || loadingSupply;
+  const buttonLoading = loadingApproveSupply
+    ? ButtonLoadingState.approve
+    : ButtonLoadingState.deposit;
   const amountWithoutComma = amount.replace(/,/g, '');
   const _generated = !amountWithoutComma
     ? ''
@@ -81,6 +85,7 @@ const SupplyTab = () => {
 
       <div className="mt-2">
         <DescentButton
+          loadingType={buttonLoading}
           loading={loading}
           disabled={!valid || loading}
           type="submit"

@@ -4,6 +4,7 @@ import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { formatAmount } from '@/utils';
 import useCollateralActions from '@/application/collateral/actions';
 import VaultChanges from './vault-changes';
+import { ButtonLoadingState } from '@/components/button/types';
 
 const RepayModal = ({ close }: { close: () => void }) => {
   const { userState, collateralState } = useSystemFunctions();
@@ -51,6 +52,7 @@ const RepayModal = ({ close }: { close: () => void }) => {
       <div className="mt-2">
         <div>
           <DescentButton
+            loadingType={ButtonLoadingState.repay}
             loading={loading}
             disabled={!valid || loading}
             type="submit"

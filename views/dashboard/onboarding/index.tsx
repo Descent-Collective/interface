@@ -11,6 +11,7 @@ import { SuccessAltIcon } from '@/public/icons';
 import { getLocalStorage, removeLocalStorage } from '@/utils';
 import { setDisconnectWallet } from '@/application/user';
 import Image from 'next/image';
+import { ButtonLoadingState } from '@/components/button/types';
 
 const images = [
   'https://res.cloudinary.com/njokuscript/image/upload/v1704908157/deposit_asset_yev0ce.gif',
@@ -225,7 +226,12 @@ const Onboarding = () => {
                 </motion.div>
               </AnimatePresence>
 
-              <DescentButton onClick={nextStep} text="Next" variant="secondary" />
+              <DescentButton
+                loadingType={ButtonLoadingState.setup}
+                onClick={nextStep}
+                text="Next"
+                variant="secondary"
+              />
             </div>
 
             <div className="absolute -top-2.5 md:top-0 right-0">

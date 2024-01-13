@@ -5,6 +5,7 @@ import { DescentButton, DescentInput } from '@/components';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { formatAmount } from '@/utils';
 import VaultChanges from './vault-changes';
+import { ButtonLoadingState } from '@/components/button/types';
 
 const liquidationWarning = (
   <div>
@@ -68,6 +69,7 @@ const BorrowTab = () => {
       <VaultChanges amount={Number(amountWithoutComma)} />
       <div className="mt-2">
         <DescentButton
+          loadingType={ButtonLoadingState.borrow}
           loading={loading}
           disabled={!valid || loading || error.toString().length > 0}
           type="submit"

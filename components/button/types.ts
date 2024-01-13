@@ -16,4 +16,14 @@ export interface Button {
     | 'action2';
   icon?: React.ReactNode;
   leftIcon?: React.ReactNode;
+  loadingType?: ButtonLoadingState;
+}
+
+export enum ButtonLoadingState {
+  repay = 'Repaying',
+  deposit = 'Depositing',
+  borrow = 'Borrowing',
+  withdraw = 'Withdrawing',
+  approve = 'Approving',
+  setup = 'Setting up',
 }
