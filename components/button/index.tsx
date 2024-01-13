@@ -107,7 +107,7 @@ const DescentButton = ({
       type={type}>
       {leftIcon && leftIcon}
 
-      <div>{loading || alertLoading ? <ButtonLoading type={loadingType} /> : text}</div>
+      <div>{loading ? <ButtonLoading type={loadingType} /> : text}</div>
 
       {icon && icon}
     </motion.button>
