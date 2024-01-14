@@ -51,9 +51,7 @@ const BorrowTab = () => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:gap-6">
       <div>
         <div className="text-black-100 text-lg md:text-xl font-medium">Borrow xNGN</div>
-        <div className="text-grey-500 font-medium text-xs md:text-sm">
-          Borrow from xNGN in vault
-        </div>
+        <div className="text-grey-500 font-medium text-xs md:text-sm">Borrow xNGN from vault</div>
       </div>
 
       <DescentInput
