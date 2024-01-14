@@ -3,7 +3,6 @@ import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 import useUserActions from '@/application/user/actions';
 import useCollateralActions from '@/application/collateral/actions';
 import { availableChains } from '@/config/rainbowkit';
-import { createPublicClient, http } from 'viem';
 
 const useDescent = () => {
   const { isDisconnected, isConnected, connector: activeConnector, address } = useAccount();
