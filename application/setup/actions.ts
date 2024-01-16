@@ -37,13 +37,10 @@ const useSetupActions = () => {
       }, 2800);
       const response = await descent.setupVault();
 
-      const res = await listener({
+      await listener({
         hash: response?.hash,
         type: 'setup',
       });
-
-      console.log(res, 'from listner');
-
       return callback?.onSuccess?.();
     } catch (error: any) {
       callback?.onError?.(error);
