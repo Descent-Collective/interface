@@ -44,7 +44,6 @@ const useSetupActions = () => {
       return callback?.onSuccess?.();
     } catch (error: any) {
       callback?.onError?.(error);
-      dispatch(setLoadingAlert(true));
     } finally {
       dispatch(setLoadingSetup(false));
     }
