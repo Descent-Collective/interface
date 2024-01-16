@@ -123,7 +123,7 @@ const useCollateralActions = () => {
 
       const response = await descent.borrowCurrency(amount);
 
-      listener({
+      await listener({
         hash: response?.hash,
         amount,
         type: 'borrow',
@@ -155,7 +155,7 @@ const useCollateralActions = () => {
 
       const response = await descent.repayCurrency(amount);
 
-      listener({
+      await listener({
         hash: response?.hash,
         amount,
         type: 'repay',
@@ -188,7 +188,7 @@ const useCollateralActions = () => {
 
       const response = await descent.withdrawCollateral(amount);
 
-      listener({
+      await listener({
         hash: response?.hash,
         amount,
         type: 'withdraw',
@@ -222,7 +222,7 @@ const useCollateralActions = () => {
 
       const response = await descent.depositCollateral(amount);
 
-      listener({
+      await listener({
         hash: response?.hash,
         amount,
         type: 'deposit',

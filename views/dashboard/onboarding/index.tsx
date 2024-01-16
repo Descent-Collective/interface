@@ -6,18 +6,18 @@ import { useAccount } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { DescentButton, DescentClickAnimation, DescentModal } from '@/components';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
-import useUserActions from '@/application/user/actions';
 import { SuccessAltIcon } from '@/public/icons';
 import { getLocalStorage, removeLocalStorage } from '@/utils';
 import { setDisconnectWallet } from '@/application/user';
 import Image from 'next/image';
 import { ButtonLoadingState } from '@/components/button/types';
+import useSetupActions from '@/application/setup/actions';
 
 const images = [
   'https://res.cloudinary.com/njokuscript/image/upload/v1704908157/deposit_asset_yev0ce.gif',
   'https://res.cloudinary.com/njokuscript/image/upload/v1704908157/borrow_asset_qnqktt.gif',
   'https://res.cloudinary.com/njokuscript/image/upload/v1704908156/repay_asset_bstux4.gif',
-  'https://res.cloudinary.com/njokuscript/image/upload/v1704908157/borrow_asset_qnqktt.gif',
+  'https://res.cloudinary.com/njokuscript/image/upload/v1704908157/withdraw_asset_ukieiu.gif',
 ];
 
 const contents = [
@@ -49,7 +49,7 @@ const Onboarding = () => {
   const { userState, dispatch } = useSystemFunctions();
   const { openConnectModal } = useConnectModal();
   const { isConnected } = useAccount();
-  const { setupVault } = useUserActions();
+  const { setupVault } = useSetupActions();
 
   const [openOnboarding, setOpenOnboarding] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
