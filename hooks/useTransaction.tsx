@@ -11,10 +11,10 @@ import {
   setLoadingSupply,
   setLoadingWithdraw,
 } from '@/application/collateral';
-import { setBorrow, setSupply } from '@/application/menu';
+import { setLoadingSetup } from '@/application/user';
 
 type TransactionStatus = {
-  type: 'approve' | 'deposit' | 'borrow' | 'repay' | 'withdraw';
+  type: 'approve' | 'deposit' | 'borrow' | 'repay' | 'withdraw' | 'setup';
   amount?: string;
   hash: `0x${string}`;
 };
@@ -104,6 +104,9 @@ const useTransactionListener = () => {
               </div>
             ),
           });
+        case 'setup':
+          dispatch(setLoadingSetup(false));
+          return;
         default:
           break;
       }

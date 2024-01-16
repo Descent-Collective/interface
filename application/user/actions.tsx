@@ -9,21 +9,11 @@ import { setCollateral } from '../collateral';
 import { setLoadingAlert } from '../alert';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
+import useTransactionListener from '@/hooks/useTransaction';
 
 const useUserActions = () => {
   const { dispatch } = useSystemFunctions();
   const { address, connector: activeConnector } = useAccount();
-
-  const [hash, setHash] = useState<`0x${string}` | undefined>(undefined);
-
-  const {
-    data: receipt,
-    isError,
-    isLoading,
-  } = useWaitForTransaction({
-    hash: hash,
-    enabled: !!hash,
-  });
 
   const _descentProvider = async () => {
     try {
@@ -39,29 +29,6 @@ const useUserActions = () => {
 
       return descent;
     } catch (error) {}
-  };
-
-  const setupVault = async (callback?: CallbackProps) => {
-    try {
-      dispatch(setLoadingSetup(true));
-      const descent = await _descentProvider();
-      setTimeout(() => {
-        dispatch(setLoadingAlert(true));
-      }, 2800);
-      const response = await descent.setupVault();
-
-      setHash(response.hash);
-
-      getVaultInfo();
-      getCollateralInfo();
-
-      return callback?.onSuccess?.();
-    } catch (error: any) {
-      callback?.onError?.(error);
-      dispatch(setLoadingAlert(true));
-    } finally {
-      dispatch(setLoadingSetup(false));
-    }
   };
 
   const getVaultInfo = async (callback?: CallbackProps) => {
@@ -124,18 +91,7 @@ const useUserActions = () => {
     }
   };
 
-  useEffect(() => {
-    if (receipt?.status != 'success' || hash === undefined) {
-      return;
-    }
-
-    dispatch(setLoadingAlert(false));
-    setHash(undefined);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [receipt, isError, isLoading, hash]);
-
   return {
-    setupVault,
     getVaultInfo,
     getCollateralInfo,
   };

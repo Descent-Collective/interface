@@ -6,6 +6,7 @@ import menuReducer from './menu';
 import collateralReducer from './collateral';
 import alertReducer from './alert';
 import inputReducer from './input';
+import setupReducer from './setup';
 
 export interface CallbackProps {
   onSuccess?: Function;
@@ -19,6 +20,7 @@ export const store = configureStore({
     collateral: collateralReducer,
     alert: alertReducer,
     input: inputReducer,
+    setup: setupReducer,
   },
 });
 
