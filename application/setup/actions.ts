@@ -32,9 +32,7 @@ const useSetupActions = () => {
     try {
       dispatch(setLoadingSetup(true));
       const descent = await _descentProvider();
-      setTimeout(() => {
-        dispatch(setLoadingAlert(true));
-      }, 2800);
+
       const response = await descent.setupVault();
 
       await listener({
