@@ -63,7 +63,7 @@ const Button = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
       </div>
 
       {isConnected && address && showModal && !disconnected && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center h-screen">
+        <div className="fixed inset-0 z-50 flex items-center justify-center h-screen 2xl:right-[20%]">
           <div
             onClick={() => setShowModal(false)}
             className="z-10 absolute w-full h-full bg-transparent"
