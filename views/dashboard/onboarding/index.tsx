@@ -3,15 +3,15 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import classNames from 'classnames';
 import { useAccount } from 'wagmi';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
+import Image from 'next/image';
 import { DescentButton, DescentClickAnimation, DescentModal } from '@/components';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { SuccessAltIcon } from '@/public/icons';
-import { getLocalStorage, removeLocalStorage } from '@/utils';
+import { getLocalStorage } from '@/utils';
 import { setDisconnectWallet } from '@/application/user';
-import Image from 'next/image';
 import { ButtonLoadingState } from '@/components/button/types';
 import useSetupActions from '@/application/setup/actions';
+import ConnectWallet from './connect-wallet';
 
 const images = [
   'https://res.cloudinary.com/njokuscript/image/upload/v1704908157/deposit_asset_yev0ce.gif',
@@ -47,7 +47,6 @@ const variants = {
 
 const Onboarding = () => {
   const { userState, dispatch } = useSystemFunctions();
-  const { openConnectModal } = useConnectModal();
   const { isConnected } = useAccount();
   const { setupVault } = useSetupActions();
 
@@ -69,15 +68,6 @@ const Onboarding = () => {
     setActiveStep((prev) => prev + 1);
   };
 
-  const connectModal = () => {
-    if (isConnected) {
-      removeLocalStorage('@descentWalletDisconnected');
-      return dispatch(setDisconnectWallet(false));
-    }
-
-    openConnectModal && openConnectModal();
-  };
-
   useEffect(() => {
     if (!loading && !user.hasSetupVault) setOpenOnboarding(true);
   }, [loading, user]);
@@ -97,30 +87,7 @@ const Onboarding = () => {
   }, [domLoaded]);
 
   if (domLoaded && isDisconnected && !openOnboarding) {
-    return (
-      <DescentModal variant="large" close={() => setOpenOnboarding(false)}>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeStep}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5 }}
-            className="bg-grey-750 rounded-[20px] px-4 py-7 md:py-[44px] w-full flex flex-col justify-center items-center my-6 md:my-[42px]">
-            <h2 className="text-black-100 font-medium text-[18px] lg:text-xl">
-              Connect your wallet.
-            </h2>
-            <p className="text-center lg:w-[55%] text-sm lg:text-base text-grey-500 font-medium mt-2 mb-5">
-              Connect your wallet to continue.
-            </p>
-
-            <div className="w-full md:w-[40%]">
-              <DescentButton onClick={connectModal} text="Connect Wallet" variant="secondary" />
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </DescentModal>
-    );
+    return <ConnectWallet setOpenOnboarding={setOpenOnboarding} />;
   }
 
   if (openOnboarding) {
@@ -134,7 +101,7 @@ const Onboarding = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
-              className="bg-grey-750 rounded-[20px] px-4 py-12 md:py-[64px] w-full flex flex-col justify-center items-center my-16 md:my-[72px]">
+              className="bg-grey-750 rounded-[20px] px-4 py-12 md:py-[64px] w-full flex flex-col justify-center items-center">
               <h2 className="text-black-100 font-medium text-[18px] lg:text-xl">
                 Set up your vault.
               </h2>

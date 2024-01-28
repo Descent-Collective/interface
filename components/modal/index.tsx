@@ -34,7 +34,7 @@ const DescentModal = ({ close, children, variant = 'normal' }: Modal) => {
           'z-20 max-h-[65%] md:max-h-[80%] overflow-y-auto bg-white-50 shadow-wide-box p-6 lg:p-12',
           {
             'w-[72%] xl:w-[470px] rounded-xl': variant === 'normal',
-            'w-[85%] md:w-[90%] xl:w-[65%] rounded-3xl': variant === 'large',
+            'w-[85%] md:w-[90%] xl:w-[65%] rounded-3xl xl:p-[72px]': variant === 'large',
           },
         )}>
         {children}
