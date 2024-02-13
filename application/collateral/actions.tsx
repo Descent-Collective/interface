@@ -73,6 +73,7 @@ const useCollateralActions = () => {
 
   const depositCollateral = async (amount: string, callback?: CallbackProps) => {
     try {
+      dispatch(setLoadingApproveSupply(true));
       const descent = await _descentProvider();
 
       const allowance = await descent.collateralTokenAllowance(address);
@@ -83,8 +84,6 @@ const useCollateralActions = () => {
         await _depositCollateralAfterApproval(amount);
         return callback?.onSuccess?.();
       }
-
-      dispatch(setLoadingApproveSupply(true));
 
       const approve = await descent.approveCollateral!(amount);
       const receipt = await waitForTransaction({ confirmations: 3, hash: approve?.hash });
@@ -150,21 +149,32 @@ const useCollateralActions = () => {
 
   const repayXNGN = async (amount: string, callback?: CallbackProps) => {
     try {
-      dispatch(setLoadingRepay(true));
+      dispatch(setLoadingApproveRepay(true));
+
       const descent = await _descentProvider();
 
-      const response = await descent.repayCurrency(amount);
+      const approve = await descent.approvexNGN(amount);
+      const receipt = await waitForTransaction({ confirmations: 3, hash: approve?.hash });
 
-      await listener({
-        hash: response?.hash,
-        amount,
-        type: 'repay',
-      });
-      await getCollateralInfo();
-      return callback?.onSuccess?.(response);
+      dispatch(setLoadingApproveRepay(false));
+      if (receipt?.status == 'success') {
+        dispatch(setLoadingRepay(true));
+        const response = await descent.repayCurrency(amount);
+
+        await listener({
+          hash: response?.hash,
+          amount,
+          type: 'repay',
+        });
+        await getCollateralInfo();
+        return callback?.onSuccess?.(response);
+      }
+
+      return callback?.onSuccess?.();
     } catch (error: any) {
       callback?.onError?.(error);
       dispatch(setLoadingRepay(false));
+      dispatch(setLoadingApproveRepay(false));
 
       alertUser({
         title: 'Loan repayment unsuccessful.',

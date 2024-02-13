@@ -6,8 +6,14 @@ import useSystemFunctions from '@/hooks/useSystemFunctions';
 
 const ButtonLoading = ({ type }: { type?: ButtonLoadingState }) => {
   const { collateralState, userState } = useSystemFunctions();
-  const { loadingApproveSupply, loadingBorrow, loadingSupply, loadingRepay, loadingWithdraw } =
-    collateralState;
+  const {
+    loadingApproveSupply,
+    loadingBorrow,
+    loadingSupply,
+    loadingRepay,
+    loadingWithdraw,
+    loadingApproveRepay,
+  } = collateralState;
 
   const { loadingSetup } = userState;
 
@@ -19,6 +25,8 @@ const ButtonLoading = ({ type }: { type?: ButtonLoadingState }) => {
         {type == ButtonLoadingState.approve && loadingApproveSupply && 'Approving...'}
 
         {type == ButtonLoadingState.deposit && loadingSupply && 'Depositing...'}
+
+        {type == ButtonLoadingState.repay && loadingApproveRepay && 'Approving...'}
 
         {type == ButtonLoadingState.repay && loadingRepay && 'Repaying...'}
 
