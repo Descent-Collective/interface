@@ -47,7 +47,7 @@ const useUserActions = () => {
         accruedFees: ethers.formatUnits(vaultInfo.accruedFees?.toString(), 18),
         currentCollateralRatio: `${ethers.formatUnits(
           vaultInfo.currentCollateralRatio?.toString(),
-          16,
+          18,
         )}`,
         availableCollateral: ethers.formatUnits(vaultInfo.availableCollateral?.toString(), 6),
         availablexNGN: ethers.formatUnits(vaultInfo.availablexNGN?.toString(), 18),
@@ -76,9 +76,9 @@ const useUserActions = () => {
           6,
         ),
         totalBorrowedAmount: ethers.formatUnits(response?.totalBorrowedAmount?.toString(), 18),
-        liquidationThreshold: ethers.formatUnits(response?.liquidationThreshold?.toString(), 16),
+        liquidationThreshold: ethers.formatUnits(response?.liquidationThreshold?.toString(), 18),
         debtCeiling: ethers.formatUnits(response?.debtCeiling?.toString(), 18),
-        rate: ethers.formatUnits(BigInt(response?.rate)?.toString(), 16),
+        rate: ethers.formatUnits(BigInt(response?.rate)?.toString(), 18),
         minDeposit: ethers.formatUnits(response?.minDeposit?.toString(), 18),
         collateralPrice: ethers.formatUnits(response?.collateralPrice?.toString(), 6),
       };
