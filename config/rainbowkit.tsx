@@ -2,10 +2,10 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { ReactNode } from 'react';
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { baseGoerli } from 'wagmi/chains';
+import { baseSepolia } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
-export const availableChains = [baseGoerli];
+export const availableChains = [baseSepolia];
 
 const { chains, publicClient } = configureChains(availableChains, [publicProvider()]);
 
