@@ -67,7 +67,7 @@ const DescentHeader = () => {
               <div className="hidden md:block">
                 <div className="h-12 py-[13px] px-3 flex items-center gap-1 rounded-lg border border-white-100 bg-grey-1000">
                   <BaseIcon />
-                  <div className="font-medium text-base text-black-100">Base Sapolia</div>
+                  <div className="font-medium text-base text-black-100">Base Sepolia</div>
                 </div>
               </div>
               {domLoaded && <Button setOpen={setIsOpen} />}
